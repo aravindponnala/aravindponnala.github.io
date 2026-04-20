@@ -197,6 +197,26 @@ removed this code
   gap: 0.3em;
 }
 
+/* Fixed top-bar state — activated by JS when any section is opened */
+#menu.menu-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0.65em 12.5%;
+  background-color: var(--background-color);
+  border-bottom: 2px solid var(--light-accent-color);
+  box-sizing: border-box;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  z-index: 1000;
+  flex-wrap: wrap;
+  gap: 0.4em;
+  transition: background-color 0.3s;
+}
+
 #menu a {
   font-family: "roboto mono", monospace;
   font-size: 0.9em;

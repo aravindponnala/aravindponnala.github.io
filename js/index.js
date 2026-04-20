@@ -69,38 +69,42 @@ function displaySection(link,section) {
             sec.style.animationName = "section-mobile";
             sec.style.animationDuration = "1.2s";
         } else {
-            
-            // remove the section from sight
+
+            // hide all sections
             for(elem of sec.parentElement.children){
                 elem.style.display = "none";
             }
-            // hide the intro area (professional summary + slogan) so they don't show under the fixed nav
-            let aboutMeIntroSection = document.querySelector("#about-me-intro-section");
-            aboutMeIntroSection.style.display = "none";
-            let slogan = document.querySelector("#slogan");
-            slogan.style.display = "none";
 
+            // hide the intro block (name header, slogan, professional summary)
+            // so nothing sits above the fixed navbar
+            document.querySelector("#about-me-intro-section").style.display = "none";
+            document.querySelector("#slogan").style.display = "none";
+            document.querySelector("#header-name-ldm").style.display = "none";
+
+            // show the selected section
             sec.classList.remove("section");
             sec.style.display = "block";
             sec.style.animationName = "section";
             sec.style.animationDuration = "0.6s";
             sec.style.animationFillMode = "forwards";
-            sec.style.paddingTop = "5em";
 
-            // scroll to top so content starts from below the fixed navbar
+            // pin navbar as a full-width top bar and measure its height for padding
+            let menu = document.querySelector("#menu");
+            menu.style.removeProperty("position");
+            menu.style.removeProperty("top");
+            menu.style.removeProperty("right");
+            menu.style.removeProperty("margin-top");
+            menu.classList.add("menu-fixed");
+            menu.style.display = "flex";
+
+            // set section top padding to match the navbar's actual rendered height
+            setTimeout(() => {
+                sec.style.paddingTop = (menu.offsetHeight + 20) + "px";
+            }, 30);
+
             window.scrollTo({ top: 0, behavior: "smooth" });
 
-            let menu = document.querySelector("#menu");
-            menu.style.marginTop = "0px";
-            menu.style.display = "flex";
-            menu.style.position = "fixed";
-            menu.style.top = "1vw";
-            menu.style.transition = "All 1s";
-            menu.style.marginTop="0px";
-            menu.style.right= "15vw";
-            menu.style.zIndex = "1000";
-
-            event.preventDefault() ;
+            event.preventDefault();
             lnk.classList.add("active");
         }
         
