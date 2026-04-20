@@ -7,27 +7,33 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="blog.css">
-    <!-- highlight.js — VS Code dark theme -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css">
     <link rel="shortcut icon" href="../images/z-icon.ico" type="image/x-icon">
     <title>Debugging FastAPI in VS Code Like a Pro — Aravind Ponnala</title>
 </head>
 <body>
 
-    <!-- Header -->
-    <div class="blog-header">
-        <div id="header-name-ldm">
-            <h1 id="name">
-                <a href="../index.html" style="text-decoration:none;color:inherit;">Aravind Ponnala</a>
-            </h1>
-            <span id="switch-ldm-logo">
-                <div id="switch-container">
-                    <img src="../images/moon.svg" alt="Toggle dark mode">
-                </div>
-            </span>
+    <!-- Fixed name bar -->
+    <div class="blog-name-bar">
+        <a href="../index.html" class="blog-name-text">
+            Aravind Ponnala
+            <span>AI Engineer</span>
+        </a>
+        <div id="switch-container">
+            <img src="../images/moon.svg" alt="Toggle dark mode">
         </div>
-        <p id="slogan">AI Engineer</p>
     </div>
+
+    <!-- Fixed nav bar -->
+    <nav class="blog-nav-bar">
+        <a href="../index.html">About Me</a>
+        <a href="../index.html">Skills</a>
+        <a href="../index.html">Work History</a>
+        <a href="../index.html">Projects</a>
+        <a href="../index.html">Links</a>
+        <a href="../index.html">Education</a>
+        <a href="index.html" class="active">Blog</a>
+    </nav>
 
     <!-- Content -->
     <div class="blog-content">
@@ -295,16 +301,15 @@ CMD ["python", "-m", "debugpy",
             <p>
                 Right-click a breakpoint dot → <strong>Edit Breakpoint</strong> → enter a condition like
                 <code>item.price &gt; 100</code>. The debugger only pauses when the condition is true —
-                invaluable inside tight loops or high-traffic endpoints where stopping on every call would
-                be impractical.
+                invaluable inside tight loops or high-traffic endpoints.
             </p>
 
             <h3>Logpoints — zero-code tracing</h3>
             <p>
                 Right-click the gutter → <strong>Add Logpoint</strong>. Enter a message such as
                 <code>Processing: {item.name}, price={item.price:.2f}</code>. VS Code logs it to the
-                Debug Console on every pass without pausing execution. Think of it as a structured,
-                toggleable <code>print()</code> that leaves no trace in your source code.
+                Debug Console on every pass without pausing execution — a structured, toggleable
+                <code>print()</code> that leaves no trace in your source code.
             </p>
 
             <h3>Debugging background tasks</h3>
@@ -322,23 +327,22 @@ async def process_email(email: str):
 
             <h3>Exception breakpoints</h3>
             <p>
-                In the Run &amp; Debug sidebar, scroll to the <strong>Breakpoints</strong> section at the
-                bottom and check <strong>Raised Exceptions</strong>. VS Code pauses the instant any exception
-                is raised — before FastAPI's exception handlers can swallow it — letting you inspect the exact
-                state that triggered the error.
+                In the Run &amp; Debug sidebar, expand <strong>Breakpoints</strong> at the bottom and check
+                <strong>Raised Exceptions</strong>. VS Code pauses the instant any exception is raised —
+                before FastAPI's handlers can swallow it — so you can inspect the exact state that triggered it.
             </p>
 
             <h2 id="s7">7. Wrapping Up</h2>
             <p>
-                The <code>print()</code> habit is understandable — it is fast and always available. But the
+                The <code>print()</code> habit is understandable — fast to type and always available. But the
                 moment your FastAPI app grows beyond a handful of routes, or you need to debug an async race
                 condition, or you are chasing a Pydantic validation error three stack frames deep, an
                 interactive debugger pays for itself immediately.
             </p>
             <p>
-                The setup described here — <code>launch.json</code> with <code>"module": "uvicorn"</code> for
-                local work and a <code>debugpy --listen</code> CMD for Docker — covers 95% of the scenarios
-                I encounter day to day. Set it up once, commit it, and your entire team gets it for free.
+                The setup here — <code>launch.json</code> with <code>"module": "uvicorn"</code> for local work
+                and <code>debugpy --listen</code> for Docker — covers 95% of the scenarios I encounter day to
+                day. Set it up once, commit it, and your whole team gets it for free.
             </p>
 
             <div class="callout callout-success">
