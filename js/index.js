@@ -75,11 +75,9 @@ function displaySection(link,section) {
                 elem.style.display = "none";
             }
 
-            // hide the intro block (name header, slogan, professional summary)
-            // so nothing sits above the fixed navbar
+            // hide slogan and professional summary — keep the name header visible
             document.querySelector("#about-me-intro-section").style.display = "none";
             document.querySelector("#slogan").style.display = "none";
-            document.querySelector("#header-name-ldm").style.display = "none";
 
             // show the selected section
             sec.classList.remove("section");
@@ -88,8 +86,10 @@ function displaySection(link,section) {
             sec.style.animationDuration = "0.6s";
             sec.style.animationFillMode = "forwards";
 
-            // pin navbar as a full-width top bar and measure its height for padding
+            // pin name bar at top, then pin nav bar directly below it
+            let headerEl = document.querySelector("#header-name-ldm");
             let menu = document.querySelector("#menu");
+            headerEl.classList.add("header-fixed");
             menu.style.removeProperty("position");
             menu.style.removeProperty("top");
             menu.style.removeProperty("right");
@@ -97,9 +97,11 @@ function displaySection(link,section) {
             menu.classList.add("menu-fixed");
             menu.style.display = "flex";
 
-            // set section top padding to match the navbar's actual rendered height
+            // position menu below the name bar and pad the section accordingly
             setTimeout(() => {
-                sec.style.paddingTop = (menu.offsetHeight + 20) + "px";
+                let headerHeight = headerEl.offsetHeight;
+                menu.style.top = headerHeight + "px";
+                sec.style.paddingTop = (headerHeight + menu.offsetHeight + 24) + "px";
             }, 30);
 
             window.scrollTo({ top: 0, behavior: "smooth" });

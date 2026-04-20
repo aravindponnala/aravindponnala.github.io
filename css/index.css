@@ -197,16 +197,39 @@ removed this code
   gap: 0.3em;
 }
 
-/* Fixed top-bar state — activated by JS when any section is opened */
-#menu.menu-fixed {
+/* Fixed name bar — activated by JS when any section is opened */
+#header-name-ldm.header-fixed {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   width: 100%;
+  padding: 0.4em 12.5%;
+  background-color: var(--background-color);
+  border-bottom: 1px solid var(--light-accent-color);
+  box-sizing: border-box;
+  z-index: 1001;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#header-name-ldm.header-fixed #name {
+  font-size: 1.2em;
+  margin: 0;
+  animation: none;
+}
+
+/* Fixed nav bar — sits below the fixed name bar */
+#menu.menu-fixed {
+  position: fixed;
+  left: 0;
+  right: 0;
+  width: 100%;
   max-width: 100%;
   margin: 0;
-  padding: 0.65em 12.5%;
+  padding: 0.5em 12.5%;
   background-color: var(--background-color);
   border-bottom: 2px solid var(--light-accent-color);
   box-sizing: border-box;
