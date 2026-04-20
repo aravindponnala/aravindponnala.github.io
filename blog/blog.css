@@ -39,6 +39,66 @@ body.blog-page #name a {
   color: inherit;
 }
 
+/* ── Debug flow diagram ──────────────────────────────────── */
+.debug-flow {
+  margin: 1.5em 0 2em;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 620px;
+}
+
+.debug-flow-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 1em;
+  padding: 0.9em 1.2em;
+  border: 2px solid var(--light-accent-color);
+  background-color: var(--background-color);
+  box-shadow: 4px 4px 0px 1px var(--light-accent-color);
+  margin-bottom: 0;
+  font-size: 0.88em;
+  line-height: 1.6;
+}
+
+.debug-flow-step strong {
+  color: var(--text-title-color);
+  display: block;
+  margin-bottom: 0.1em;
+  font-size: 0.95em;
+}
+
+.debug-flow-step span {
+  color: var(--text-color);
+  opacity: 0.8;
+  font-size: 0.9em;
+}
+
+.flow-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2em;
+  height: 2em;
+  background-color: var(--text-color);
+  color: var(--background-color);
+  font-family: "roboto mono", monospace;
+  font-size: 0.85em;
+  font-weight: bold;
+  flex-shrink: 0;
+  margin-top: 0.1em;
+}
+
+.debug-flow-arrow {
+  text-align: center;
+  font-size: 1.2em;
+  color: var(--text-color);
+  opacity: 0.4;
+  padding: 0.1em 0;
+  margin-left: 1em;
+  line-height: 1;
+}
+
 /* ── Back-nav ────────────────────────────────────────────── */
 .blog-back-nav {
   font-family: "roboto mono", monospace;

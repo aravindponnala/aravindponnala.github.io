@@ -13,7 +13,7 @@
 </head>
 <body class="blog-page">
 
-    <!-- Fixed name bar — same structure as portfolio -->
+    <!-- Fixed name bar -->
     <div id="header-name-ldm" class="header-fixed">
         <div id="name-group">
             <h1 id="name"><a href="../index.html">Aravind Ponnala</a></h1>
@@ -26,7 +26,7 @@
         </span>
     </div>
 
-    <!-- Fixed nav bar — same structure as portfolio -->
+    <!-- Fixed nav bar -->
     <header id="menu" class="menu-fixed" style="display:flex;">
         <p><a href="../index.html">About Me</a></p>
         <p><a href="../index.html">Skills</a></p>
@@ -48,7 +48,7 @@
             <div class="blog-post-meta">
                 <span>April 2026</span>
                 <span>·</span>
-                <span>8 min read</span>
+                <span>12 min read</span>
                 <span>·</span>
                 <div class="post-tags">
                     <span>FastAPI</span>
@@ -56,6 +56,7 @@
                     <span>Python</span>
                     <span>Debugging</span>
                     <span>Docker</span>
+                    <span>Beginner-friendly</span>
                 </div>
             </div>
         </div>
@@ -91,17 +92,31 @@
             </div>
         </div>
 
+        <!-- ⚡ 30-Second Quick Start -->
+        <div class="callout callout-success">
+            <strong>⚡ 30-Second Quick Start (TL;DR)</strong>
+            <ol>
+                <li>Create <code>.venv</code> and install <code>fastapi uvicorn[standard] debugpy</code></li>
+                <li>Add <code>.vscode/launch.json</code> with <code>"module": "uvicorn"</code> (see section 4)</li>
+                <li>Select the correct Python interpreter in VS Code (<code>Ctrl+Shift+P</code> → <em>Python: Select Interpreter</em>)</li>
+                <li>Click the gutter next to any route handler line — red dot = breakpoint set</li>
+                <li>Press <code>F5</code> → hit your endpoint → VS Code pauses at the breakpoint</li>
+            </ol>
+        </div>
+
         <!-- Table of contents -->
         <nav class="toc">
             <h4>Contents</h4>
             <ol>
                 <li><a href="#s1">Why the print() Habit Hurts</a></li>
-                <li><a href="#s2">Prerequisites</a></li>
-                <li><a href="#s3">Setting Up launch.json</a></li>
-                <li><a href="#s4">Running FastAPI Under the Debugger</a></li>
-                <li><a href="#s5">Debugging Inside Docker</a></li>
-                <li><a href="#s6">Tips &amp; Tricks</a></li>
-                <li><a href="#s7">Wrapping Up</a></li>
+                <li><a href="#s2">How Debugging Actually Works</a></li>
+                <li><a href="#s3">Prerequisites</a></li>
+                <li><a href="#s4">Setting Up launch.json</a></li>
+                <li><a href="#s5">Running FastAPI Under the Debugger</a></li>
+                <li><a href="#s6">Debugging Inside Docker</a></li>
+                <li><a href="#s7">Common Errors &amp; Step-by-Step Fixes</a></li>
+                <li><a href="#s8">Tips &amp; Tricks</a></li>
+                <li><a href="#s9">Wrapping Up</a></li>
             </ol>
         </nav>
 
@@ -110,10 +125,10 @@
 
             <h2 id="s1">1. Why the <code>print()</code> Habit Hurts</h2>
             <p>
-                Every Python developer has done it — hit a bug, scatter a handful of
-                <code>print(some_var)</code> statements across the handler, restart the server, fire a request,
-                squint at the terminal, then do it all over again. It works eventually, but it is slow, noisy,
-                and teaches you nothing about the control flow you did not already suspect.
+                Every Python developer has been there — hit a bug, scatter <code>print(some_var)</code>
+                statements everywhere, restart the server, fire a request, squint at the terminal, repeat.
+                It works eventually, but it is slow and teaches you nothing about the control flow you
+                didn't already suspect.
             </p>
             <p>A proper interactive debugger gives you:</p>
             <ul>
@@ -123,31 +138,100 @@
                 <li><strong>Call-stack navigation</strong> — jump between frames to understand how you got here</li>
                 <li><strong>Expression evaluation</strong> — run arbitrary code in the paused context</li>
             </ul>
+
+            <h2 id="s2">2. How Debugging Actually Works</h2>
             <p>
-                FastAPI + VS Code makes all of this trivially easy once you have a <code>launch.json</code> in
-                place. Here is the exact setup I use in production-like environments.
+                Before touching any config, it helps to understand what happens when you press <code>F5</code>
+                in VS Code. A lot of "breakpoints not hitting" problems come from one of these five steps breaking.
             </p>
 
-            <h2 id="s2">2. Prerequisites</h2>
+            <div class="debug-flow">
+                <div class="debug-flow-step">
+                    <span class="flow-icon">1</span>
+                    <div>
+                        <strong>VS Code reads launch.json</strong><br>
+                        <span>Picks your virtualenv Python, your working directory, and your args</span>
+                    </div>
+                </div>
+                <div class="debug-flow-arrow">↓</div>
+                <div class="debug-flow-step">
+                    <span class="flow-icon">2</span>
+                    <div>
+                        <strong>debugpy starts</strong><br>
+                        <span>Wraps your Python process so VS Code can pause and inspect it</span>
+                    </div>
+                </div>
+                <div class="debug-flow-arrow">↓</div>
+                <div class="debug-flow-step">
+                    <span class="flow-icon">3</span>
+                    <div>
+                        <strong>uvicorn launches as a module</strong><br>
+                        <span><code>python -m uvicorn main:app</code> — the <code>-m</code> flag is what lets debugpy attach</span>
+                    </div>
+                </div>
+                <div class="debug-flow-arrow">↓</div>
+                <div class="debug-flow-step">
+                    <span class="flow-icon">4</span>
+                    <div>
+                        <strong>Your FastAPI app starts</strong><br>
+                        <span>Routes register, startup events fire, server listens on port 8000</span>
+                    </div>
+                </div>
+                <div class="debug-flow-arrow">↓</div>
+                <div class="debug-flow-step">
+                    <span class="flow-icon">5</span>
+                    <div>
+                        <strong>Request hits a breakpoint → VS Code pauses</strong><br>
+                        <span>You can now inspect variables, step through code, evaluate expressions</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="callout">
+                <strong>Key insight</strong>
+                If debugging fails, it's almost always step 1 (wrong interpreter or cwd), step 3
+                (using <code>"program"</code> instead of <code>"module"</code>), or a
+                <code>PYTHONPATH</code> mismatch. The fixes in section 7 map directly to these steps.
+            </div>
+
+            <h2 id="s3">3. Prerequisites</h2>
             <p>Make sure the following are ready before proceeding:</p>
             <ul>
                 <li>VS Code with the <strong>Python</strong> extension (<code>ms-python.python</code>)</li>
                 <li>Python 3.10+ virtual environment activated in your project</li>
                 <li><code>fastapi</code> and <code>uvicorn[standard]</code> installed in that environment</li>
-                <li>Optional: <strong>Docker</strong> + <strong>Dev Containers</strong> extension for section 5</li>
+                <li>Optional: <strong>Docker</strong> + <strong>Dev Containers</strong> extension for section 6</li>
             </ul>
+
+            <h3>Real-world project structure</h3>
+            <p>
+                Most tutorials show a single <code>main.py</code>. Real repos look more like this —
+                and the debug config needs to account for it:
+            </p>
+            <pre data-lang="text"><code class="language-plaintext">my-api/
+├── .venv/                  ← your virtualenv
+├── .vscode/
+│   └── launch.json         ← debug config lives here
+├── app/
+│   ├── __init__.py
+│   ├── main.py             ← FastAPI app instance
+│   ├── routers/
+│   │   └── orders.py
+│   └── models.py
+├── requirements.txt
+└── .env</code></pre>
 
             <div class="callout">
                 <strong>Note</strong>
-                All commands below assume your project root contains <code>main.py</code> and your virtual
-                environment lives at <code>.venv/</code>. Adjust paths to match your project structure.
+                All commands below assume this structure. The <code>cwd</code> and <code>args</code>
+                fields in <code>launch.json</code> will need to match your actual layout.
             </div>
 
-            <h2 id="s3">3. Setting Up <code>launch.json</code></h2>
+            <h2 id="s4">4. Setting Up <code>launch.json</code></h2>
             <p>
                 Press <code>Ctrl+Shift+P</code> (or <code>Cmd+Shift+P</code> on Mac) and run
-                <strong>Debug: Open launch.json</strong>. If no file exists yet, VS Code creates
-                <code>.vscode/launch.json</code> for you. Replace its content with:
+                <strong>Debug: Open launch.json</strong>. VS Code creates <code>.vscode/launch.json</code>
+                if it doesn't exist. Paste this:
             </p>
 
             <pre data-lang="json"><code class="language-json">{
@@ -159,22 +243,60 @@
       "request": "launch",
       "module": "uvicorn",
       "args": [
-        "main:app",
+        "app.main:app",
         "--reload",
         "--host", "0.0.0.0",
         "--port", "8000"
       ],
+      "cwd": "${workspaceFolder}",
+      "envFile": "${workspaceFolder}/.env",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      },
       "jinja": true,
       "justMyCode": true
     }
   ]
 }</code></pre>
 
-            <p>Key fields explained:</p>
+            <h3>Understanding <code>app.main:app</code> — the most common confusion</h3>
+            <p>
+                The string <code>"app.main:app"</code> follows this pattern:
+            </p>
+            <pre data-lang="text"><code class="language-plaintext">"package.module:variable"
+      ↑         ↑        ↑
+  folder    filename   FastAPI()
+  (app/)  (main.py)   instance name</code></pre>
+
+            <p>Examples for common structures:</p>
             <ul>
-                <li><code>"module": "uvicorn"</code> — runs <code>python -m uvicorn</code> so debugpy can inject itself. Never use <code>"program"</code> with the uvicorn binary.</li>
-                <li><code>"--reload"</code> — hot-reload stays active; breakpoints survive file saves.</li>
-                <li><code>"justMyCode": true</code> — skips stepping into FastAPI / Starlette internals.</li>
+                <li><code>main.py</code> at root with <code>app = FastAPI()</code> → use <code>"main:app"</code></li>
+                <li><code>app/main.py</code> with <code>app = FastAPI()</code> → use <code>"app.main:app"</code></li>
+                <li><code>src/server.py</code> with <code>api = FastAPI()</code> → use <code>"src.server:api"</code></li>
+            </ul>
+
+            <h3>Key fields explained</h3>
+            <ul>
+                <li>
+                    <code>"module": "uvicorn"</code> — runs <code>python -m uvicorn</code> so debugpy
+                    can inject itself. <strong>Never use <code>"program"</code></strong> — it launches
+                    the binary and debugpy cannot attach.
+                </li>
+                <li>
+                    <code>"cwd"</code> — sets the working directory Python imports resolve from.
+                    Wrong <code>cwd</code> = "Could not import module" errors.
+                </li>
+                <li>
+                    <code>"PYTHONPATH"</code> — adds your project root to Python's module search path.
+                    Essential when your app is in a subdirectory.
+                </li>
+                <li>
+                    <code>"envFile"</code> — loads <code>.env</code> variables automatically so your
+                    app config works the same as in production.
+                </li>
+                <li>
+                    <code>"justMyCode": true</code> — skips stepping into FastAPI / Starlette internals.
+                </li>
             </ul>
 
             <div class="callout callout-warn">
@@ -183,10 +305,10 @@
                 directly and debugpy cannot attach. Always use <code>"module": "uvicorn"</code>.
             </div>
 
-            <h2 id="s4">4. Running FastAPI Under the Debugger</h2>
+            <h2 id="s5">5. Running FastAPI Under the Debugger</h2>
             <p>
-                With <code>launch.json</code> saved, open <code>main.py</code> and click the gutter next to
-                any line inside a route handler. A red dot confirms the breakpoint is set.
+                With <code>launch.json</code> saved, open any route handler file and click the gutter next
+                to a line number. A red dot confirms the breakpoint is set.
             </p>
 
             <pre data-lang="python"><code class="language-python">from fastapi import FastAPI
@@ -211,24 +333,29 @@ async def create_item(item: Item):
   -d '{"name": "widget", "price": 9.99}'</code></pre>
 
             <p>
-                VS Code pauses at your breakpoint. Hover over <code>item</code> to inspect the full Pydantic
-                model, type expressions in the <strong>Debug Console</strong>, or step through with
-                <code>F10</code> (step over) and <code>F11</code> (step into).
+                VS Code pauses at your breakpoint. You can now:
             </p>
+            <ul>
+                <li>Hover over <code>item</code> to see the full Pydantic model</li>
+                <li>Open <strong>Debug Console</strong> and type <code>item.price * 1.1</code></li>
+                <li>Press <code>F10</code> to step over a line, <code>F11</code> to step into a function call</li>
+                <li>Press <code>F5</code> again to continue to the next breakpoint</li>
+            </ul>
 
             <div class="callout callout-success">
                 <strong>Pro tip</strong>
-                Open the <strong>Watch</strong> panel and add expressions like <code>item.model_dump()</code>.
-                They re-evaluate every time execution pauses — a live dashboard for your key values.
+                Open the <strong>Watch</strong> panel (Run &amp; Debug sidebar) and add expressions like
+                <code>item.model_dump()</code>. They re-evaluate every time execution pauses — a live
+                dashboard for your key values.
             </div>
 
-            <h2 id="s5">5. Debugging Inside Docker</h2>
+            <h2 id="s6">6. Debugging Inside Docker</h2>
             <p>
                 When your FastAPI app runs in a container, expose the debugpy port and tell VS Code to
                 attach remotely.
             </p>
 
-            <h3>5.1 — Update your Dockerfile</h3>
+            <h3>6.1 — Update your Dockerfile</h3>
             <pre data-lang="dockerfile"><code class="language-dockerfile">FROM python:3.11-slim
 
 WORKDIR /app
@@ -237,13 +364,14 @@ RUN pip install -r requirements.txt debugpy
 
 COPY . .
 
+# debugpy listens on 5678; uvicorn serves on 8000
 CMD ["python", "-m", "debugpy",
      "--listen", "0.0.0.0:5678",
      "--wait-for-client",
-     "-m", "uvicorn", "main:app",
+     "-m", "uvicorn", "app.main:app",
      "--host", "0.0.0.0", "--port", "8000", "--reload"]</code></pre>
 
-            <h3>5.2 — Expose ports in docker-compose</h3>
+            <h3>6.2 — Expose ports in docker-compose</h3>
             <pre data-lang="yaml"><code class="language-yaml">services:
   api:
     build: .
@@ -251,9 +379,9 @@ CMD ["python", "-m", "debugpy",
       - "8000:8000"   # FastAPI
       - "5678:5678"   # debugpy
     volumes:
-      - .:/app</code></pre>
+      - .:/app        # live-reload picks up file changes</code></pre>
 
-            <h3>5.3 — Add a remote-attach config</h3>
+            <h3>6.3 — Add a remote-attach config</h3>
             <pre data-lang="json"><code class="language-json">{
   "name": "FastAPI: Docker Attach",
   "type": "debugpy",
@@ -266,9 +394,10 @@ CMD ["python", "-m", "debugpy",
 }</code></pre>
 
             <p>
-                Run <code>docker compose up</code>. The container waits for a debugger client. Select
-                <strong>FastAPI: Docker Attach</strong> in VS Code and press <code>F5</code> — the container
-                unblocks and your breakpoints work exactly as they do locally.
+                Run <code>docker compose up</code>. The container blocks at startup (because of
+                <code>--wait-for-client</code>). Select <strong>FastAPI: Docker Attach</strong> in VS Code
+                and press <code>F5</code> — the container unblocks and your breakpoints work exactly as
+                they do locally.
             </p>
 
             <div class="callout callout-warn">
@@ -277,19 +406,66 @@ CMD ["python", "-m", "debugpy",
                 override file. The <code>--wait-for-client</code> flag blocks all traffic until a debugger connects.
             </div>
 
-            <h2 id="s6">6. Tips &amp; Tricks</h2>
+            <h2 id="s7">7. Common Errors &amp; Step-by-Step Fixes</h2>
+            <p>
+                These are the errors people actually Google. Each one maps back to one of the five debug
+                flow steps from section 2.
+            </p>
+
+            <h3>❌ Could not import module</h3>
+            <pre data-lang="text"><code class="language-plaintext">ERROR: Could not import module "app.main"</code></pre>
+            <p>Fix checklist — try in order:</p>
+            <ul>
+                <li>Check <code>args</code> in launch.json — does <code>"app.main:app"</code> match your actual file path?</li>
+                <li>Check <code>cwd</code> — it should be <code>${workspaceFolder}</code> (your project root)</li>
+                <li>Add <code>"PYTHONPATH": "${workspaceFolder}"</code> to the <code>env</code> block</li>
+                <li>Make sure <code>app/__init__.py</code> exists (makes the folder a Python package)</li>
+            </ul>
+
+            <h3>❌ Breakpoints not hitting</h3>
+            <pre data-lang="text"><code class="language-plaintext">Breakpoint set but never paused — request goes through without stopping</code></pre>
+            <p>Fix checklist:</p>
+            <ul>
+                <li>Confirm you used <code>"module": "uvicorn"</code> not <code>"program"</code></li>
+                <li>Check VS Code is using the <strong>virtualenv interpreter</strong>, not system Python
+                    (<code>Ctrl+Shift+P</code> → <em>Python: Select Interpreter</em> → pick the one in <code>.venv/</code>)</li>
+                <li>If <code>--reload</code> is on, the reloader spawns a child process — try disabling it temporarily to confirm breakpoints work first</li>
+                <li>Check the bottom status bar — if it says <code>⚡ debugpy</code> the debugger is attached</li>
+            </ul>
+
+            <h3>❌ Wrong interpreter / module not found</h3>
+            <pre data-lang="text"><code class="language-plaintext">ModuleNotFoundError: No module named 'fastapi'</code></pre>
+            <p>Fix checklist:</p>
+            <ul>
+                <li>VS Code is using system Python instead of your <code>.venv</code></li>
+                <li>Select the correct interpreter: <code>Ctrl+Shift+P</code> → <em>Python: Select Interpreter</em> → choose <code>./.venv/bin/python</code></li>
+                <li>Or explicitly set it in launch.json: <code>"python": "${workspaceFolder}/.venv/bin/python"</code></li>
+            </ul>
+
+            <h3>❌ Port already in use</h3>
+            <pre data-lang="text"><code class="language-plaintext">ERROR: [Errno 48] Address already in use</code></pre>
+            <p>Fix:</p>
+            <pre data-lang="bash"><code class="language-bash"># Find the process using port 8000
+lsof -i :8000
+
+# Kill it (replace PID with actual number from above)
+kill -9 &lt;PID&gt;</code></pre>
+
+            <h2 id="s8">8. Tips &amp; Tricks</h2>
 
             <h3>Conditional breakpoints</h3>
             <p>
                 Right-click a breakpoint dot → <strong>Edit Breakpoint</strong> → add a condition like
-                <code>item.price &gt; 100</code>. The debugger pauses only when the condition is true.
+                <code>item.price &gt; 100</code>. The debugger pauses only when the condition is true —
+                invaluable inside tight loops or high-traffic endpoints.
             </p>
 
             <h3>Logpoints — zero-code tracing</h3>
             <p>
                 Right-click the gutter → <strong>Add Logpoint</strong>. Enter a message like
-                <code>Processing: {item.name}, price={item.price:.2f}</code>. VS Code logs it on every pass
-                without pausing — a structured, toggleable <code>print()</code> that leaves no trace in source.
+                <code>Processing: {item.name}, price={item.price:.2f}</code>. VS Code logs it on every
+                pass without pausing — a structured, toggleable <code>print()</code> that leaves no trace
+                in source code.
             </p>
 
             <h3>Debugging background tasks</h3>
@@ -306,23 +482,29 @@ async def process_email(email: str):
 
             <h3>Exception breakpoints</h3>
             <p>
-                In the Run &amp; Debug sidebar, expand <strong>Breakpoints</strong> and check
-                <strong>Raised Exceptions</strong>. VS Code pauses the instant any exception is raised,
-                before FastAPI's handlers can swallow it.
+                In the Run &amp; Debug sidebar, expand <strong>Breakpoints</strong> at the bottom and check
+                <strong>Raised Exceptions</strong>. VS Code pauses the instant any exception is raised —
+                before FastAPI's handlers can swallow it — so you can inspect the exact state that triggered it.
             </p>
 
-            <h2 id="s7">7. Wrapping Up</h2>
+            <h2 id="s9">9. Wrapping Up</h2>
             <p>
-                The setup here — <code>launch.json</code> with <code>"module": "uvicorn"</code> for local
-                work and <code>debugpy --listen</code> for Docker — covers 95% of the debugging scenarios I
-                encounter day to day. Set it up once, commit it, and your whole team gets it for free.
+                The setup here covers 95% of the debugging scenarios I encounter day to day. Set it up once,
+                commit <code>.vscode/launch.json</code> to your repo, and your whole team gets it for free.
+            </p>
+            <p>
+                The mental model is the key takeaway: <strong>if debugging fails, one of the five steps
+                broke.</strong> Use the error checklist in section 7 to pinpoint which one and fix it in
+                under a minute.
             </p>
 
             <div class="callout callout-success">
-                <strong>TL;DR checklist</strong>
+                <strong>Full checklist</strong>
                 <ul>
-                    <li>Add <code>.vscode/launch.json</code> with <code>"module": "uvicorn"</code></li>
-                    <li>Use <code>"justMyCode": true</code> to stay focused on your own code</li>
+                    <li>Use <code>"module": "uvicorn"</code>, never <code>"program"</code></li>
+                    <li>Set <code>"cwd": "${workspaceFolder}"</code> and <code>"PYTHONPATH"</code></li>
+                    <li>Use <code>"module:variable"</code> syntax matching your actual file structure</li>
+                    <li>Select the virtualenv interpreter, not system Python</li>
                     <li>For Docker: install <code>debugpy</code>, expose port 5678, use <code>--wait-for-client</code></li>
                     <li>Try conditional breakpoints and logpoints before reaching for <code>print()</code></li>
                 </ul>
