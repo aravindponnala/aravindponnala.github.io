@@ -243,10 +243,17 @@ removed this code
   display: block;
 }
 
-/* Keep dark mode icon in the fixed bar on portfolio (it's independently fixed via #switch-container img) */
+/* Dark mode icon: sits inside the flex header when header-fixed is active */
 #header-name-ldm.header-fixed #switch-ldm-logo {
   display: flex;
   align-items: center;
+}
+
+/* When the fixed header is active, pull the moon icon back into the flex flow */
+#header-name-ldm.header-fixed #switch-container img {
+  position: static;
+  top: auto;
+  animation: none;
 }
 
 /* Fixed nav bar — sits below the fixed name bar */
