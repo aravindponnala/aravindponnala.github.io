@@ -74,16 +74,21 @@ function displaySection(link,section) {
             for(elem of sec.parentElement.children){
                 elem.style.display = "none";
             }
-            // remove the about-me-intro
+            // hide the intro area (professional summary + slogan) so they don't show under the fixed nav
             let aboutMeIntroSection = document.querySelector("#about-me-intro-section");
-            aboutMeIntroSection.style.display = "None";
+            aboutMeIntroSection.style.display = "none";
+            let slogan = document.querySelector("#slogan");
+            slogan.style.display = "none";
 
             sec.classList.remove("section");
             sec.style.display = "block";
             sec.style.animationName = "section";
             sec.style.animationDuration = "0.6s";
             sec.style.animationFillMode = "forwards";
-            sec.style.paddingTop = "4em";
+            sec.style.paddingTop = "5em";
+
+            // scroll to top so content starts from below the fixed navbar
+            window.scrollTo({ top: 0, behavior: "smooth" });
 
             let menu = document.querySelector("#menu");
             menu.style.marginTop = "0px";
