@@ -7,141 +7,142 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="blog.css">
-    <!-- highlight.js for syntax highlighting -->
+    <!-- highlight.js — VS Code dark theme -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css">
     <link rel="shortcut icon" href="../images/z-icon.ico" type="image/x-icon">
     <title>Debugging FastAPI in VS Code Like a Pro — Aravind Ponnala</title>
 </head>
 <body>
 
-<div>
-    <div id="header-name-ldm">
-        <h1 id="name"><a href="../index.html" style="text-decoration:none;color:inherit;">Aravind Ponnala</a></h1>
-        <span id="switch-ldm-logo">
-            <div id="switch-container">
-                <img src="../images/moon.svg" alt="Toggle dark mode">
-            </div>
-        </span>
+    <!-- Header -->
+    <div class="blog-header">
+        <div id="header-name-ldm">
+            <h1 id="name">
+                <a href="../index.html" style="text-decoration:none;color:inherit;">Aravind Ponnala</a>
+            </h1>
+            <span id="switch-ldm-logo">
+                <div id="switch-container">
+                    <img src="../images/moon.svg" alt="Toggle dark mode">
+                </div>
+            </span>
+        </div>
+        <p id="slogan">AI Engineer</p>
     </div>
-    <p id="slogan">AI Engineer</p>
-</div>
 
-<main style="padding: 0 15vw; padding-top: 2em;">
+    <!-- Content -->
+    <div class="blog-content">
 
-    <a href="index.html" class="blog-back-nav">← Back to Blog</a>
+        <a href="index.html" class="blog-back-nav">← Back to Blog</a>
 
-    <!-- Post header -->
-    <header class="blog-post-header">
-        <h1>Debugging FastAPI in VS Code Like a Pro</h1>
-        <div class="blog-post-meta">
-            <span>April 2026</span>
-            <span>·</span>
-            <span>8 min read</span>
-            <span>·</span>
-            <div class="post-tags">
-                <span>FastAPI</span>
-                <span>VS Code</span>
-                <span>Python</span>
-                <span>Debugging</span>
-                <span>Docker</span>
+        <!-- Post header -->
+        <div class="blog-post-header">
+            <h1>Debugging FastAPI in VS&nbsp;Code Like a Pro</h1>
+            <div class="blog-post-meta">
+                <span>April 2026</span>
+                <span>·</span>
+                <span>8 min read</span>
+                <span>·</span>
+                <div class="post-tags">
+                    <span>FastAPI</span>
+                    <span>VS Code</span>
+                    <span>Python</span>
+                    <span>Debugging</span>
+                    <span>Docker</span>
+                </div>
             </div>
         </div>
-    </header>
 
-    <!-- Hero banner -->
-    <div class="blog-hero">
-        <pre>
-<span style="color:#569CD6">async def</span> <span style="color:#DCDCAA">get_order</span>(order_id: <span style="color:#4EC9B0">int</span>) -> <span style="color:#4EC9B0">OrderResponse</span>:
+        <!-- Hero banner -->
+        <div class="blog-hero">
+            <pre><span style="color:#569CD6">async def</span> <span style="color:#DCDCAA">get_order</span>(order_id: <span style="color:#4EC9B0">int</span>) -&gt; <span style="color:#4EC9B0">OrderResponse</span>:
     <span style="color:#6A9955"># ← set breakpoint here</span>
     order = <span style="color:#C586C0">await</span> db.fetch_one(
         query=orders.select().where(orders.c.id == order_id)
     )
     <span style="color:#C586C0">return</span> OrderResponse(**order)</pre>
-        <span class="hero-badge">VS Code · FastAPI</span>
-    </div>
-
-    <!-- Tech icons -->
-    <div class="tech-icons">
-        <div class="tech-label">
-            <object type="image/svg+xml" data="../images/visualstudiocode.svg" style="width:36px;height:36px;"></object>
-            VS Code
-        </div>
-        <div class="tech-label">
-            <object type="image/svg+xml" data="../images/python.svg" style="width:36px;height:36px;"></object>
-            Python
-        </div>
-        <div class="tech-label">
-            <object type="image/svg+xml" data="../images/docker.svg" style="width:36px;height:36px;"></object>
-            Docker
-        </div>
-        <div class="tech-label">
-            <object type="image/svg+xml" data="../images/fastapi.svg" style="width:36px;height:36px;"></object>
-            FastAPI
-        </div>
-    </div>
-
-    <!-- Table of contents -->
-    <nav class="toc">
-        <h4>Contents</h4>
-        <ol>
-            <li><a href="#s1">Why the print() Habit Hurts</a></li>
-            <li><a href="#s2">Prerequisites</a></li>
-            <li><a href="#s3">Setting Up launch.json</a></li>
-            <li><a href="#s4">Running FastAPI Under the Debugger</a></li>
-            <li><a href="#s5">Debugging Inside Docker</a></li>
-            <li><a href="#s6">Tips &amp; Tricks</a></li>
-            <li><a href="#s7">Wrapping Up</a></li>
-        </ol>
-    </nav>
-
-    <!-- Article body -->
-    <article class="blog-article">
-
-        <h2 id="s1">1. Why the <code>print()</code> Habit Hurts</h2>
-        <p>
-            Every Python developer has done it: you hit a bug, you scatter a handful of
-            <code>print(some_var)</code> statements across your handler, restart the server, fire a request,
-            squint at the terminal, then do it all over again. It works — eventually — but it is slow,
-            noisy, and teaches you nothing about the control flow you did not already suspect.
-        </p>
-        <p>
-            A proper interactive debugger gives you:
-        </p>
-        <ul>
-            <li><strong>Breakpoints</strong> — pause execution at any line without touching source code</li>
-            <li><strong>Variable inspection</strong> — see the full object tree, not just what you remembered to print</li>
-            <li><strong>Step-through execution</strong> — watch exactly which branches your code takes</li>
-            <li><strong>Call-stack navigation</strong> — jump between frames to understand how you got here</li>
-            <li><strong>Expression evaluation</strong> — run arbitrary code in the paused context</li>
-        </ul>
-        <p>
-            FastAPI + VS Code makes all of this trivially easy once you have a <code>launch.json</code> in place.
-            Here is the exact setup I use in production-like environments.
-        </p>
-
-        <h2 id="s2">2. Prerequisites</h2>
-        <p>Make sure the following are installed before proceeding:</p>
-        <ul>
-            <li>VS Code with the <strong>Python</strong> extension (ms-python.python)</li>
-            <li>Python 3.10+ virtual environment activated</li>
-            <li><code>fastapi</code>, <code>uvicorn[standard]</code> installed in that environment</li>
-            <li>Optional: <strong>Docker</strong> + <strong>Remote – Containers</strong> extension for the Docker section</li>
-        </ul>
-
-        <div class="callout">
-            <strong>Note</strong>
-            All commands below assume your project root contains <code>main.py</code> and your virtual
-            environment is at <code>.venv/</code>. Adjust paths as needed.
+            <span class="hero-badge">VS Code · FastAPI</span>
         </div>
 
-        <h2 id="s3">3. Setting Up <code>launch.json</code></h2>
-        <p>
-            In VS Code, press <code>Ctrl+Shift+P</code> (or <code>Cmd+Shift+P</code> on Mac) and select
-            <strong>Debug: Open launch.json</strong>. If no file exists yet, VS Code creates
-            <code>.vscode/launch.json</code> for you. Paste the following configuration:
-        </p>
+        <!-- Tech icon row -->
+        <div class="tech-icons">
+            <div class="tech-label">
+                <object type="image/svg+xml" data="../images/visualstudiocode.svg"></object>
+                VS Code
+            </div>
+            <div class="tech-label">
+                <object type="image/svg+xml" data="../images/python.svg"></object>
+                Python
+            </div>
+            <div class="tech-label">
+                <object type="image/svg+xml" data="../images/docker.svg"></object>
+                Docker
+            </div>
+            <div class="tech-label">
+                <object type="image/svg+xml" data="../images/fastapi.svg"></object>
+                FastAPI
+            </div>
+        </div>
 
-        <pre data-lang="json"><code class="language-json">{
+        <!-- Table of contents -->
+        <nav class="toc">
+            <h4>Contents</h4>
+            <ol>
+                <li><a href="#s1">Why the print() Habit Hurts</a></li>
+                <li><a href="#s2">Prerequisites</a></li>
+                <li><a href="#s3">Setting Up launch.json</a></li>
+                <li><a href="#s4">Running FastAPI Under the Debugger</a></li>
+                <li><a href="#s5">Debugging Inside Docker</a></li>
+                <li><a href="#s6">Tips &amp; Tricks</a></li>
+                <li><a href="#s7">Wrapping Up</a></li>
+            </ol>
+        </nav>
+
+        <!-- Article -->
+        <article class="blog-article">
+
+            <h2 id="s1">1. Why the <code>print()</code> Habit Hurts</h2>
+            <p>
+                Every Python developer has done it — hit a bug, scatter a handful of
+                <code>print(some_var)</code> statements across the handler, restart the server, fire a request,
+                squint at the terminal, then do it all over again. It works eventually, but it is slow, noisy,
+                and teaches you nothing about the control flow you did not already suspect.
+            </p>
+            <p>A proper interactive debugger gives you:</p>
+            <ul>
+                <li><strong>Breakpoints</strong> — pause execution at any line without touching source code</li>
+                <li><strong>Variable inspection</strong> — see the full object tree, not just what you remembered to print</li>
+                <li><strong>Step-through execution</strong> — watch exactly which branches your code takes</li>
+                <li><strong>Call-stack navigation</strong> — jump between frames to understand how you got here</li>
+                <li><strong>Expression evaluation</strong> — run arbitrary code in the paused context</li>
+            </ul>
+            <p>
+                FastAPI + VS Code makes all of this trivially easy once you have a <code>launch.json</code> in
+                place. Here is the exact setup I use in production-like environments.
+            </p>
+
+            <h2 id="s2">2. Prerequisites</h2>
+            <p>Make sure the following are ready before proceeding:</p>
+            <ul>
+                <li>VS Code with the <strong>Python</strong> extension (<code>ms-python.python</code>)</li>
+                <li>Python 3.10+ virtual environment activated in your project</li>
+                <li><code>fastapi</code> and <code>uvicorn[standard]</code> installed in that environment</li>
+                <li>Optional: <strong>Docker</strong> + <strong>Dev Containers</strong> extension for section 5</li>
+            </ul>
+
+            <div class="callout">
+                <strong>Note</strong>
+                All commands below assume your project root contains <code>main.py</code> and your virtual
+                environment lives at <code>.venv/</code>. Adjust paths to match your project structure.
+            </div>
+
+            <h2 id="s3">3. Setting Up <code>launch.json</code></h2>
+            <p>
+                Press <code>Ctrl+Shift+P</code> (or <code>Cmd+Shift+P</code> on Mac) and run
+                <strong>Debug: Open launch.json</strong>. If no file exists yet, VS Code creates
+                <code>.vscode/launch.json</code> for you. Replace its content with:
+            </p>
+
+            <pre data-lang="json"><code class="language-json">{
   "version": "0.2.0",
   "configurations": [
     {
@@ -161,26 +162,34 @@
   ]
 }</code></pre>
 
-        <p>Key fields explained:</p>
-        <ul>
-            <li><code>"module": "uvicorn"</code> — tells debugpy to run <code>python -m uvicorn</code> rather than a script file, which is the correct way to launch uvicorn so it inherits the debugger's process</li>
-            <li><code>"--reload"</code> — keeps hot-reload active; breakpoints survive file saves</li>
-            <li><code>"justMyCode": true</code> — skips stepping into FastAPI / Starlette internals unless you explicitly want to</li>
-        </ul>
+            <p>Key fields explained:</p>
+            <ul>
+                <li>
+                    <code>"module": "uvicorn"</code> — runs <code>python -m uvicorn</code> so debugpy
+                    can inject itself into the process. Never use <code>"program"</code> with the uvicorn binary.
+                </li>
+                <li>
+                    <code>"--reload"</code> — hot-reload stays active; breakpoints survive file saves.
+                </li>
+                <li>
+                    <code>"justMyCode": true</code> — skips stepping into FastAPI / Starlette internals
+                    unless you explicitly need to.
+                </li>
+            </ul>
 
-        <div class="callout callout-warn">
-            <strong>Warning</strong>
-            Do <em>not</em> use <code>"program": "path/to/uvicorn"</code> — that launches the uvicorn binary
-            directly and debugpy cannot inject itself. Always use <code>"module"</code>.
-        </div>
+            <div class="callout callout-warn">
+                <strong>Warning</strong>
+                Do <em>not</em> set <code>"program": "path/to/uvicorn"</code>. That launches the uvicorn
+                binary directly and debugpy cannot attach. Always use <code>"module": "uvicorn"</code>.
+            </div>
 
-        <h2 id="s4">4. Running FastAPI Under the Debugger</h2>
-        <p>
-            With <code>launch.json</code> saved, open your <code>main.py</code> and click the gutter to the
-            left of a line number inside any route handler. A red dot appears — that is your breakpoint.
-        </p>
+            <h2 id="s4">4. Running FastAPI Under the Debugger</h2>
+            <p>
+                With <code>launch.json</code> saved, open <code>main.py</code> and click the gutter to the
+                left of any line inside a route handler. A red dot confirms the breakpoint is set.
+            </p>
 
-        <pre data-lang="python"><code class="language-python">from fastapi import FastAPI
+            <pre data-lang="python"><code class="language-python">from fastapi import FastAPI
 from pydantic import BaseModel
 
 app = FastAPI()
@@ -191,40 +200,38 @@ class Item(BaseModel):
 
 @app.post("/items/")
 async def create_item(item: Item):
-    # ← Click the gutter here to set a breakpoint
+    # ← click the gutter here to set a breakpoint
     result = {"item_name": item.name, "item_price": item.price}
     return result</code></pre>
 
-        <p>
-            Press <code>F5</code> (or click the green play button in the Run &amp; Debug sidebar).
-            VS Code starts uvicorn and attaches debugpy. Now send a request:
-        </p>
+            <p>
+                Press <code>F5</code> to start. VS Code launches uvicorn and attaches debugpy. Send a request:
+            </p>
 
-        <pre data-lang="bash"><code class="language-bash">curl -X POST http://localhost:8000/items/ \
+            <pre data-lang="bash"><code class="language-bash">curl -X POST http://localhost:8000/items/ \
   -H "Content-Type: application/json" \
   -d '{"name": "widget", "price": 9.99}'</code></pre>
 
-        <p>
-            VS Code pauses at your breakpoint. You can hover over <code>item</code> to see its full Pydantic
-            model, use the <strong>Debug Console</strong> panel to evaluate <code>item.price * 1.1</code>,
-            or step through the function with <code>F10</code> (step over) and <code>F11</code> (step into).
-        </p>
+            <p>
+                VS Code pauses at your breakpoint. Hover over <code>item</code> to inspect the full Pydantic
+                model, type expressions in the <strong>Debug Console</strong> (try <code>item.price * 1.1</code>),
+                or step through the function with <code>F10</code> (step over) and <code>F11</code> (step into).
+            </p>
 
-        <div class="callout callout-success">
-            <strong>Pro tip</strong>
-            Open the <strong>Watch</strong> panel and add expressions like <code>len(result)</code> or
-            <code>item.model_dump()</code>. They re-evaluate every time execution pauses, giving you a
-            live dashboard of your key values.
-        </div>
+            <div class="callout callout-success">
+                <strong>Pro tip</strong>
+                Open the <strong>Watch</strong> panel and add expressions like <code>item.model_dump()</code>.
+                They re-evaluate every time execution pauses — a live dashboard for your key values.
+            </div>
 
-        <h2 id="s5">5. Debugging Inside Docker</h2>
-        <p>
-            If your FastAPI app runs in a Docker container (common in microservice setups), you need to
-            expose the debugpy port and tell VS Code to attach to it remotely.
-        </p>
+            <h2 id="s5">5. Debugging Inside Docker</h2>
+            <p>
+                When your FastAPI app runs in a container (common in microservice stacks), expose the
+                debugpy port and tell VS Code to attach remotely.
+            </p>
 
-        <h3>5.1 Update your Dockerfile</h3>
-        <pre data-lang="dockerfile"><code class="language-dockerfile">FROM python:3.11-slim
+            <h3>5.1 — Update your Dockerfile</h3>
+            <pre data-lang="dockerfile"><code class="language-dockerfile">FROM python:3.11-slim
 
 WORKDIR /app
 COPY requirements.txt .
@@ -232,26 +239,26 @@ RUN pip install -r requirements.txt debugpy
 
 COPY . .
 
-# Use debugpy to launch uvicorn — port 5678 is the debugger, 8000 is the app
+# debugpy listens on 5678; uvicorn serves on 8000
 CMD ["python", "-m", "debugpy",
      "--listen", "0.0.0.0:5678",
      "--wait-for-client",
      "-m", "uvicorn", "main:app",
      "--host", "0.0.0.0", "--port", "8000", "--reload"]</code></pre>
 
-        <h3>5.2 Expose the port in docker-compose</h3>
-        <pre data-lang="yaml"><code class="language-yaml">services:
+            <h3>5.2 — Expose ports in docker-compose</h3>
+            <pre data-lang="yaml"><code class="language-yaml">services:
   api:
     build: .
     ports:
       - "8000:8000"   # FastAPI
       - "5678:5678"   # debugpy
     volumes:
-      - .:/app        # live reload picks up file changes</code></pre>
+      - .:/app        # live-reload picks up file changes</code></pre>
 
-        <h3>5.3 Add a remote-attach configuration</h3>
-        <p>Add a second entry to your <code>launch.json</code> configurations array:</p>
-        <pre data-lang="json"><code class="language-json">{
+            <h3>5.3 — Add a remote-attach config</h3>
+            <p>Add this second entry inside the <code>configurations</code> array of your <code>launch.json</code>:</p>
+            <pre data-lang="json"><code class="language-json">{
   "name": "FastAPI: Docker Attach",
   "type": "debugpy",
   "request": "attach",
@@ -268,98 +275,97 @@ CMD ["python", "-m", "debugpy",
   "justMyCode": true
 }</code></pre>
 
-        <p>
-            Run <code>docker compose up</code> in a terminal. The container starts and waits for the debugger
-            (because of <code>--wait-for-client</code>). In VS Code, select
-            <strong>FastAPI: Docker Attach</strong> from the debug dropdown and press <code>F5</code>.
-            The container unblocks, uvicorn starts, and your breakpoints work exactly as they do locally.
-        </p>
+            <p>
+                Run <code>docker compose up</code>. The container blocks at startup waiting for a client
+                (because of <code>--wait-for-client</code>). Select <strong>FastAPI: Docker Attach</strong>
+                in VS Code and press <code>F5</code>. The container unblocks, uvicorn starts, and your
+                breakpoints work exactly as they do locally.
+            </p>
 
-        <div class="callout callout-warn">
-            <strong>Security reminder</strong>
-            Never expose port 5678 in production. The <code>--wait-for-client</code> flag also blocks
-            all requests until a debugger connects — use a separate <code>docker-compose.debug.yml</code>
-            override file rather than modifying your production compose file.
-        </div>
+            <div class="callout callout-warn">
+                <strong>Security reminder</strong>
+                Never expose port 5678 in production images. Use a separate
+                <code>docker-compose.debug.yml</code> override rather than modifying your production compose file.
+                The <code>--wait-for-client</code> flag blocks all traffic until a debugger connects.
+            </div>
 
-        <h2 id="s6">6. Tips &amp; Tricks</h2>
+            <h2 id="s6">6. Tips &amp; Tricks</h2>
 
-        <h3>Conditional breakpoints</h3>
-        <p>
-            Right-click a breakpoint dot → <strong>Edit Breakpoint</strong> → add a condition like
-            <code>item.price &gt; 100</code>. The debugger only pauses when the condition is true — invaluable
-            when you need to catch a specific case inside a loop or high-traffic endpoint.
-        </p>
+            <h3>Conditional breakpoints</h3>
+            <p>
+                Right-click a breakpoint dot → <strong>Edit Breakpoint</strong> → enter a condition like
+                <code>item.price &gt; 100</code>. The debugger only pauses when the condition is true —
+                invaluable inside tight loops or high-traffic endpoints where stopping on every call would
+                be impractical.
+            </p>
 
-        <h3>Logpoints (no-stop tracing)</h3>
-        <p>
-            Right-click the gutter → <strong>Add Logpoint</strong>. Enter a message like
-            <code>Processing item: {item.name}, price={item.price}</code>. VS Code logs this to the
-            Debug Console on every pass — without pausing execution. Think of it as a structured,
-            zero-code <code>print()</code> that you can toggle off in one click.
-        </p>
+            <h3>Logpoints — zero-code tracing</h3>
+            <p>
+                Right-click the gutter → <strong>Add Logpoint</strong>. Enter a message such as
+                <code>Processing: {item.name}, price={item.price:.2f}</code>. VS Code logs it to the
+                Debug Console on every pass without pausing execution. Think of it as a structured,
+                toggleable <code>print()</code> that leaves no trace in your source code.
+            </p>
 
-        <h3>Debugging background tasks</h3>
-        <pre data-lang="python"><code class="language-python">from fastapi import BackgroundTasks
+            <h3>Debugging background tasks</h3>
+            <pre data-lang="python"><code class="language-python">from fastapi import BackgroundTasks
 
 @app.post("/send-email/")
 async def send_email(background_tasks: BackgroundTasks, email: str):
-    background_tasks.add_task(heavy_email_sender, email)
+    background_tasks.add_task(process_email, email)
     return {"message": "queued"}
 
-async def heavy_email_sender(email: str):
-    # Breakpoints work here too — FastAPI runs background tasks
+async def process_email(email: str):
+    # Breakpoints work here — FastAPI runs background tasks
     # in the same event loop, so debugpy stays attached
     ...</code></pre>
 
-        <h3>Exception breakpoints</h3>
-        <p>
-            In the Run &amp; Debug sidebar, expand <strong>Breakpoints</strong> at the bottom. Check
-            <strong>Raised Exceptions</strong> or <strong>Uncaught Exceptions</strong>. VS Code will pause
-            the moment any exception is raised — before FastAPI's exception handlers swallow it — letting
-            you inspect the exact state that caused the error.
-        </p>
+            <h3>Exception breakpoints</h3>
+            <p>
+                In the Run &amp; Debug sidebar, scroll to the <strong>Breakpoints</strong> section at the
+                bottom and check <strong>Raised Exceptions</strong>. VS Code pauses the instant any exception
+                is raised — before FastAPI's exception handlers can swallow it — letting you inspect the exact
+                state that triggered the error.
+            </p>
 
-        <h2 id="s7">7. Wrapping Up</h2>
-        <p>
-            The <code>print()</code> habit is understandable — it is fast to type and universally available.
-            But the moment your FastAPI app grows beyond a handful of routes, or you need to debug an
-            async race condition, or you are chasing a Pydantic validation error three stack frames deep,
-            an interactive debugger pays for itself immediately.
-        </p>
-        <p>
-            The setup described here — <code>launch.json</code> with <code>"module": "uvicorn"</code> for
-            local work and a <code>debugpy --listen</code> CMD for Docker — covers 95% of the debugging
-            scenarios I encounter day to day. Set it up once, commit it to your repo, and your whole team
-            gets it for free.
-        </p>
+            <h2 id="s7">7. Wrapping Up</h2>
+            <p>
+                The <code>print()</code> habit is understandable — it is fast and always available. But the
+                moment your FastAPI app grows beyond a handful of routes, or you need to debug an async race
+                condition, or you are chasing a Pydantic validation error three stack frames deep, an
+                interactive debugger pays for itself immediately.
+            </p>
+            <p>
+                The setup described here — <code>launch.json</code> with <code>"module": "uvicorn"</code> for
+                local work and a <code>debugpy --listen</code> CMD for Docker — covers 95% of the scenarios
+                I encounter day to day. Set it up once, commit it, and your entire team gets it for free.
+            </p>
 
-        <div class="callout callout-success">
-            <strong>TL;DR checklist</strong>
-            <ul style="margin-top:0.5em;margin-bottom:0;">
-                <li>Add <code>.vscode/launch.json</code> with <code>"module": "uvicorn"</code></li>
-                <li>Use <code>"justMyCode": true</code> to stay focused on your code</li>
-                <li>For Docker: expose port 5678, install <code>debugpy</code>, use <code>--wait-for-client</code></li>
-                <li>Try conditional breakpoints and logpoints before reaching for <code>print()</code></li>
-            </ul>
+            <div class="callout callout-success">
+                <strong>TL;DR checklist</strong>
+                <ul>
+                    <li>Add <code>.vscode/launch.json</code> with <code>"module": "uvicorn"</code></li>
+                    <li>Use <code>"justMyCode": true</code> to stay focused on your own code</li>
+                    <li>For Docker: install <code>debugpy</code>, expose port 5678, use <code>--wait-for-client</code></li>
+                    <li>Try conditional breakpoints and logpoints before reaching for <code>print()</code></li>
+                </ul>
+            </div>
+
+        </article>
+
+        <!-- Post footer -->
+        <div class="blog-post-footer">
+            <a href="index.html" class="blog-back-nav" style="margin:0;">← All Posts</a>
+            <span style="font-family:'Roboto Mono',monospace;font-size:0.8em;opacity:0.5;">
+                Aravind Ponnala · April 2026
+            </span>
         </div>
 
-    </article>
-
-    <!-- Post footer -->
-    <footer class="blog-post-footer">
-        <a href="index.html" class="blog-back-nav" style="margin:0;">← All Posts</a>
-        <span style="font-family:'Roboto Mono',monospace;font-size:0.8em;opacity:0.5;">
-            Aravind Ponnala · April 2026
-        </span>
-    </footer>
-
-</main>
+    </div><!-- .blog-content -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <script>
-    // Only apply hljs to code blocks NOT already inside .blog-hero (those are hand-coloured)
-    document.querySelectorAll('.blog-article pre code').forEach(block => {
+    document.querySelectorAll('article.blog-article pre code').forEach(block => {
         hljs.highlightElement(block);
     });
 </script>
