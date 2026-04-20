@@ -11,29 +11,31 @@
     <link rel="shortcut icon" href="../images/z-icon.ico" type="image/x-icon">
     <title>Debugging FastAPI in VS Code Like a Pro — Aravind Ponnala</title>
 </head>
-<body>
+<body class="blog-page">
 
-    <!-- Fixed name bar -->
-    <div class="blog-name-bar">
-        <a href="../index.html" class="blog-name-text">
-            Aravind Ponnala
-            <span>AI Engineer</span>
-        </a>
-        <div id="switch-container">
-            <img src="../images/moon.svg" alt="Toggle dark mode">
+    <!-- Fixed name bar — same structure as portfolio -->
+    <div id="header-name-ldm" class="header-fixed">
+        <div id="name-group">
+            <h1 id="name"><a href="../index.html">Aravind Ponnala</a></h1>
+            <span id="name-role">AI Engineer</span>
         </div>
+        <span id="switch-ldm-logo">
+            <div id="switch-container">
+                <img src="../images/moon.svg" alt="Toggle dark mode">
+            </div>
+        </span>
     </div>
 
-    <!-- Fixed nav bar -->
-    <nav class="blog-nav-bar">
-        <a href="../index.html">About Me</a>
-        <a href="../index.html">Skills</a>
-        <a href="../index.html">Work History</a>
-        <a href="../index.html">Projects</a>
-        <a href="../index.html">Links</a>
-        <a href="../index.html">Education</a>
-        <a href="index.html" class="active">Blog</a>
-    </nav>
+    <!-- Fixed nav bar — same structure as portfolio -->
+    <header id="menu" class="menu-fixed" style="display:flex;">
+        <p><a href="../index.html">About Me</a></p>
+        <p><a href="../index.html">Skills</a></p>
+        <p><a href="../index.html">Work History</a></p>
+        <p><a href="../index.html">Projects</a></p>
+        <p><a href="../index.html">Links</a></p>
+        <p><a href="../index.html">Education</a></p>
+        <p class="active"><a href="index.html">Blog</a></p>
+    </header>
 
     <!-- Content -->
     <div class="blog-content">
@@ -170,29 +172,21 @@
 
             <p>Key fields explained:</p>
             <ul>
-                <li>
-                    <code>"module": "uvicorn"</code> — runs <code>python -m uvicorn</code> so debugpy
-                    can inject itself into the process. Never use <code>"program"</code> with the uvicorn binary.
-                </li>
-                <li>
-                    <code>"--reload"</code> — hot-reload stays active; breakpoints survive file saves.
-                </li>
-                <li>
-                    <code>"justMyCode": true</code> — skips stepping into FastAPI / Starlette internals
-                    unless you explicitly need to.
-                </li>
+                <li><code>"module": "uvicorn"</code> — runs <code>python -m uvicorn</code> so debugpy can inject itself. Never use <code>"program"</code> with the uvicorn binary.</li>
+                <li><code>"--reload"</code> — hot-reload stays active; breakpoints survive file saves.</li>
+                <li><code>"justMyCode": true</code> — skips stepping into FastAPI / Starlette internals.</li>
             </ul>
 
             <div class="callout callout-warn">
                 <strong>Warning</strong>
-                Do <em>not</em> set <code>"program": "path/to/uvicorn"</code>. That launches the uvicorn
-                binary directly and debugpy cannot attach. Always use <code>"module": "uvicorn"</code>.
+                Do <em>not</em> set <code>"program": "path/to/uvicorn"</code>. That launches the binary
+                directly and debugpy cannot attach. Always use <code>"module": "uvicorn"</code>.
             </div>
 
             <h2 id="s4">4. Running FastAPI Under the Debugger</h2>
             <p>
-                With <code>launch.json</code> saved, open <code>main.py</code> and click the gutter to the
-                left of any line inside a route handler. A red dot confirms the breakpoint is set.
+                With <code>launch.json</code> saved, open <code>main.py</code> and click the gutter next to
+                any line inside a route handler. A red dot confirms the breakpoint is set.
             </p>
 
             <pre data-lang="python"><code class="language-python">from fastapi import FastAPI
@@ -210,9 +204,7 @@ async def create_item(item: Item):
     result = {"item_name": item.name, "item_price": item.price}
     return result</code></pre>
 
-            <p>
-                Press <code>F5</code> to start. VS Code launches uvicorn and attaches debugpy. Send a request:
-            </p>
+            <p>Press <code>F5</code> to start. VS Code launches uvicorn and attaches debugpy. Send a request:</p>
 
             <pre data-lang="bash"><code class="language-bash">curl -X POST http://localhost:8000/items/ \
   -H "Content-Type: application/json" \
@@ -220,8 +212,8 @@ async def create_item(item: Item):
 
             <p>
                 VS Code pauses at your breakpoint. Hover over <code>item</code> to inspect the full Pydantic
-                model, type expressions in the <strong>Debug Console</strong> (try <code>item.price * 1.1</code>),
-                or step through the function with <code>F10</code> (step over) and <code>F11</code> (step into).
+                model, type expressions in the <strong>Debug Console</strong>, or step through with
+                <code>F10</code> (step over) and <code>F11</code> (step into).
             </p>
 
             <div class="callout callout-success">
@@ -232,8 +224,8 @@ async def create_item(item: Item):
 
             <h2 id="s5">5. Debugging Inside Docker</h2>
             <p>
-                When your FastAPI app runs in a container (common in microservice stacks), expose the
-                debugpy port and tell VS Code to attach remotely.
+                When your FastAPI app runs in a container, expose the debugpy port and tell VS Code to
+                attach remotely.
             </p>
 
             <h3>5.1 — Update your Dockerfile</h3>
@@ -245,7 +237,6 @@ RUN pip install -r requirements.txt debugpy
 
 COPY . .
 
-# debugpy listens on 5678; uvicorn serves on 8000
 CMD ["python", "-m", "debugpy",
      "--listen", "0.0.0.0:5678",
      "--wait-for-client",
@@ -260,56 +251,45 @@ CMD ["python", "-m", "debugpy",
       - "8000:8000"   # FastAPI
       - "5678:5678"   # debugpy
     volumes:
-      - .:/app        # live-reload picks up file changes</code></pre>
+      - .:/app</code></pre>
 
             <h3>5.3 — Add a remote-attach config</h3>
-            <p>Add this second entry inside the <code>configurations</code> array of your <code>launch.json</code>:</p>
             <pre data-lang="json"><code class="language-json">{
   "name": "FastAPI: Docker Attach",
   "type": "debugpy",
   "request": "attach",
-  "connect": {
-    "host": "localhost",
-    "port": 5678
-  },
+  "connect": { "host": "localhost", "port": 5678 },
   "pathMappings": [
-    {
-      "localRoot": "${workspaceFolder}",
-      "remoteRoot": "/app"
-    }
+    { "localRoot": "${workspaceFolder}", "remoteRoot": "/app" }
   ],
   "justMyCode": true
 }</code></pre>
 
             <p>
-                Run <code>docker compose up</code>. The container blocks at startup waiting for a client
-                (because of <code>--wait-for-client</code>). Select <strong>FastAPI: Docker Attach</strong>
-                in VS Code and press <code>F5</code>. The container unblocks, uvicorn starts, and your
-                breakpoints work exactly as they do locally.
+                Run <code>docker compose up</code>. The container waits for a debugger client. Select
+                <strong>FastAPI: Docker Attach</strong> in VS Code and press <code>F5</code> — the container
+                unblocks and your breakpoints work exactly as they do locally.
             </p>
 
             <div class="callout callout-warn">
                 <strong>Security reminder</strong>
-                Never expose port 5678 in production images. Use a separate
-                <code>docker-compose.debug.yml</code> override rather than modifying your production compose file.
-                The <code>--wait-for-client</code> flag blocks all traffic until a debugger connects.
+                Never expose port 5678 in production. Use a separate <code>docker-compose.debug.yml</code>
+                override file. The <code>--wait-for-client</code> flag blocks all traffic until a debugger connects.
             </div>
 
             <h2 id="s6">6. Tips &amp; Tricks</h2>
 
             <h3>Conditional breakpoints</h3>
             <p>
-                Right-click a breakpoint dot → <strong>Edit Breakpoint</strong> → enter a condition like
-                <code>item.price &gt; 100</code>. The debugger only pauses when the condition is true —
-                invaluable inside tight loops or high-traffic endpoints.
+                Right-click a breakpoint dot → <strong>Edit Breakpoint</strong> → add a condition like
+                <code>item.price &gt; 100</code>. The debugger pauses only when the condition is true.
             </p>
 
             <h3>Logpoints — zero-code tracing</h3>
             <p>
-                Right-click the gutter → <strong>Add Logpoint</strong>. Enter a message such as
-                <code>Processing: {item.name}, price={item.price:.2f}</code>. VS Code logs it to the
-                Debug Console on every pass without pausing execution — a structured, toggleable
-                <code>print()</code> that leaves no trace in your source code.
+                Right-click the gutter → <strong>Add Logpoint</strong>. Enter a message like
+                <code>Processing: {item.name}, price={item.price:.2f}</code>. VS Code logs it on every pass
+                without pausing — a structured, toggleable <code>print()</code> that leaves no trace in source.
             </p>
 
             <h3>Debugging background tasks</h3>
@@ -321,28 +301,21 @@ async def send_email(background_tasks: BackgroundTasks, email: str):
     return {"message": "queued"}
 
 async def process_email(email: str):
-    # Breakpoints work here — FastAPI runs background tasks
-    # in the same event loop, so debugpy stays attached
+    # Breakpoints work here — same event loop, debugpy stays attached
     ...</code></pre>
 
             <h3>Exception breakpoints</h3>
             <p>
-                In the Run &amp; Debug sidebar, expand <strong>Breakpoints</strong> at the bottom and check
-                <strong>Raised Exceptions</strong>. VS Code pauses the instant any exception is raised —
-                before FastAPI's handlers can swallow it — so you can inspect the exact state that triggered it.
+                In the Run &amp; Debug sidebar, expand <strong>Breakpoints</strong> and check
+                <strong>Raised Exceptions</strong>. VS Code pauses the instant any exception is raised,
+                before FastAPI's handlers can swallow it.
             </p>
 
             <h2 id="s7">7. Wrapping Up</h2>
             <p>
-                The <code>print()</code> habit is understandable — fast to type and always available. But the
-                moment your FastAPI app grows beyond a handful of routes, or you need to debug an async race
-                condition, or you are chasing a Pydantic validation error three stack frames deep, an
-                interactive debugger pays for itself immediately.
-            </p>
-            <p>
-                The setup here — <code>launch.json</code> with <code>"module": "uvicorn"</code> for local work
-                and <code>debugpy --listen</code> for Docker — covers 95% of the scenarios I encounter day to
-                day. Set it up once, commit it, and your whole team gets it for free.
+                The setup here — <code>launch.json</code> with <code>"module": "uvicorn"</code> for local
+                work and <code>debugpy --listen</code> for Docker — covers 95% of the debugging scenarios I
+                encounter day to day. Set it up once, commit it, and your whole team gets it for free.
             </p>
 
             <div class="callout callout-success">
@@ -357,7 +330,6 @@ async def process_email(email: str):
 
         </article>
 
-        <!-- Post footer -->
         <div class="blog-post-footer">
             <a href="index.html" class="blog-back-nav" style="margin:0;">← All Posts</a>
             <span style="font-family:'Roboto Mono',monospace;font-size:0.8em;opacity:0.5;">

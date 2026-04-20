@@ -1,4 +1,4 @@
-// Blog pages — dark/light mode + fixed header layout
+// Blog pages — dark/light mode + position fixed header below name bar
 document.documentElement.style.setProperty('--background-color', '#fafafa');
 
 /* ── Dark / light mode ─────────────────────────────────────────── */
@@ -36,10 +36,10 @@ function switchDarkLightMode() {
 }
 
 /* ── Fixed header layout ───────────────────────────────────────── */
-// Positions the nav bar directly below the name bar and offsets content
+// Positions #menu directly below #header-name-ldm and pads .blog-content
 function fixBlogHeader() {
-    const nameBar = document.querySelector('.blog-name-bar');
-    const navBar  = document.querySelector('.blog-nav-bar');
+    const nameBar = document.querySelector('#header-name-ldm');
+    const navBar  = document.querySelector('#menu');
     const content = document.querySelector('.blog-content');
     if (!nameBar || !navBar || !content) return;
 
