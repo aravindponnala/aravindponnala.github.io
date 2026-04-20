@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:500&display=swap" rel="stylesheet">
@@ -28,18 +28,16 @@
         </span>
     </div>
 
-    <p id="slogan">Software engineer</p>
+    <p id="slogan">AI Engineer</p>
     
     <div id="go-back-button"> <i class="fas fa-chevron-left"></i> Menu</div>
     <section id="about-me-intro-section" class="section">
-        <p>skilled full-stack developer with over 6 years of experience in web application development, specializing in Python, 
-            Django, and Fast API. He has a strong background in MVT architecture, RESTful APIs, and AWS Cloud Services, 
-            with expertise in agile methodologies and DevOps practices. Aravind has worked on diverse projects, including 
-            microservices architecture, API integration, and database management, using technologies like PostgreSQL, Docker, 
-            and React.js. He is currently pursuing a Master’s in Computer Science at Auburn University at Montgomery and has a 
-            proven track record of delivering scalable, user-friendly solutions.<br></p>
+        <p>AI-focused Full Stack / Backend Engineer with 6+ years of experience building scalable distributed systems
+            using Python, FastAPI, Django, React.js, and PostgreSQL across fintech, healthcare, and e-commerce.
+            Specialized in LLM orchestration, multi-agent architectures, and RAG pipelines. MS in Computer Science,
+            Auburn University at Montgomery. AWS Certified Developer – Associate.<br></p>
         <a id="contact" href="#contact-section">Get In Touch</a>
-        <a href="https://raw.githubusercontent.com/your-username/your-repo/main/assets/aravind_ponnala_resume.pdf" target="_blank">Download CV</a>
+        <a href="images/aravind_ponnala_resume.pdf" target="_blank">Download CV</a>
 
     </section>
     <!-- menu -->
@@ -47,8 +45,10 @@
         <p id="about-me"> <a href="">About Me</a> </p>
         <p id="skills"> <a href="">Skills</a> </p>
         <p id="work_history"> <a href="">Work History</a> </p>
-        <p id="projects" style="display:none;"> <a href="">Projects</a> </p>
+        <p id="projects"> <a href="">Projects</a> </p>
         <p id="links"> <a href="">Links</a> </p>
+        <p id="education"> <a href="">Education</a> </p>
+        <p id="blog-nav"><a href="blog/index.html">Blog</a></p>
         <!-- style="display:none;" -->
         <p id="inner-contact" style="display:none;"> <a href="#contact-section">Get In Touch</a> </p>
     </header> 
@@ -64,14 +64,14 @@
             <img src="images/AravindProfile.jpeg" alt="Aravind Ponnal" class="profile-photo">
             <div class="about-me-text">
                 <p>
-                    I am a results-driven Web Application Developer with over six years of experience in building dynamic, user-centric solutions. 
-                    With expertise in Python, Django, and FastAPI, I specialize in developing scalable and high-performance applications while 
-                    leveraging MVT architecture and object-oriented programming principles.
-                    My skill set includes seamless integration of RESTful APIs, AWS Cloud Services, and trend-based algorithms 
-                    to drive innovation and efficiency. I am well-versed in agile methodologies, ensuring rapid development cycles and 
-                    delivering impactful solutions that align with business objectives. 
-                    Passionate about crafting intuitive and robust applications, I am committed to delivering exceptional value to 
-                    stakeholders through technology-driven excellence.
+                    I am an AI-focused Full Stack / Backend Engineer with over 6 years of experience developing scalable, distributed systems
+                    across fintech, healthcare, and e-commerce. I specialize in Python, FastAPI, Django, React.js, and PostgreSQL,
+                    with deep expertise in LLM orchestration, multi-agent architectures, and RAG pipelines.
+                    At GenieShop, I design multi-agent AI routing systems using FastAPI, LangChain, and OpenAI/Gemini APIs.
+                    At S&P Global, I enhanced a real-time commodity pricing platform, improving editorial validation speed by 40%
+                    through Kafka-based streaming and microservices. At Aodh Lifesciences, I built a HIPAA-compliant
+                    multi-tenant healthcare SaaS on AWS serving 15+ facilities. I hold an MS in Computer Science from
+                    Auburn University at Montgomery and an AWS Certified Developer – Associate certification.
                 </p>
                 <!-- <a href="mailto:ziyadkader@gmail.com" class="btn">Hire me</a> -->
             </div>
@@ -83,71 +83,124 @@
     <section id="skills-section" class="section">
         <h2>Skills</h2>
         <article>
-            <section>                                                                                                                               
-                <h4>Programmings languages <img class="section-logos" src="./images/programming.svg"></h4>
+            <section>
+                <h4>Languages &amp; Scripting <img class="section-logos" src="./images/programming.svg"></h4>
                 <ul>
-                    <li skill-description="Javascript"><object type="image/svg+xml" data="images/javascript.svg"></object>JavaScript</li>
-                    <li skill-description="Java"><object type="image/svg+xml" data="images/python.svg"></object>Python</li>
+                    <li skill-description="Python"><object type="image/svg+xml" data="images/python.svg"></object>Python</li>
+                    <li skill-description="JavaScript"><object type="image/svg+xml" data="images/javascript.svg"></object>JavaScript (ES6+)</li>
+                    <li skill-description="TypeScript"><object type="image/svg+xml" data="images/typescript.svg"></object>TypeScript</li>
+                    <li skill-description="Java"><object type="image/svg+xml" data="images/java.svg"></object>Java</li>
+                    <li skill-description="C++"><object type="image/svg+xml" data="images/cplusplus.svg"></object>C++</li>
+                    <li skill-description="Shell Scripting"><object type="image/svg+xml" data="images/gnubash.svg"></object>Shell Scripting</li>
                 </ul>
-                
             </section>
             <section>
-                <h4>Web Frontend<img class="section-logos" src="./images/frontend.svg"></h4>
-                <ul>
-                    <li skill-description="HTML 5"><object type="image/svg+xml" data="images/html5.svg" class="svg-logos"></object>HTML</li>
-                    <li skill-description="CSS"><object type="image/svg+xml" data="images/css3.svg"></object>CSS</li>
-                    <li skill-description="Sass"><object type="image/svg+xml" data="images/react.svg"></object>React</li>
-                    <li skill-description="Bootstrap"><object type="image/svg+xml" data="images/bootstrap.svg"></object>Bootstrap</li>
-                    <li skill-description="JQuery"><object type="image/svg+xml" data="images/jquery.svg"></object>Jquery</li>
-                    <!-- <li skill-description="Sass"><object type="image/svg+xml" data="images/sass.svg"></object>Sass</li> -->
-                </ul>
-            </section> 
-            
-            <section>
-                <h4>Web Backend <img class="section-logos" src="./images/backend.svg"></h4>
+                <h4>Backend Frameworks <img class="section-logos" src="./images/backend.svg"></h4>
                 <ul>
                     <li skill-description="Django"><object type="image/svg+xml" data="images/django.svg"></object>Django</li>
+                    <li skill-description="Django REST Framework"><object type="image/svg+xml" data="images/django.svg"></object>Django REST Framework</li>
+                    <li skill-description="FastAPI"><object type="image/svg+xml" data="images/Mediamodifier.svg"></object>FastAPI</li>
                     <li skill-description="Flask"><object type="image/svg+xml" data="images/flask.svg"></object>Flask</li>
-                    <li skill-description="Flask"><object type="image/svg+xml" data="images/Mediamodifier.svg"></object>Fastapi</li>
-                </ul>
-                
-            </section>
-            
-            <section>
-                <h4>Mobile <img class="section-logos" src="./images/phone.svg"></h4>
-                <ul>
-                    <li  skill-description="react-native"><object type="image/svg+xml" data="images/react.svg"></object>React native</li>
-                </ul>
-            </section> 
-            
-            <section>
-                <h4>Desktop <img class="section-logos" src="./images/desktop.svg"></h4>
-                <ul>
-                    <li  skill-description="Electron"><object type="image/svg+xml" data="images/electron.svg"></object>Electron</li>
-                    <li  skill-description="Tkinter"><object type="image/svg+xml" data="images/python.svg"></object>Tkinter</li>
-                    <!-- <li  skill-description="JavaFx"><object type="image/svg+xml" data="images/java.svg"></object>JavaFx</li> -->
-                </ul>
-            </section> 
-            
-            <section>
-                <h4>Databases<img class="section-logos" src="./images/database.svg"></h4>
-                <ul>
-                    <li  skill-description="Mysql"><object type="image/svg+xml" data="images/mysql.svg"></object>Mysql</li>
-                    <li  skill-description="mongodb"><object type="image/svg+xml" data="images/mongodb.svg"></object>Mongodb</li>
-                    <!-- <li  skill-description="Oracle"><object type="image/svg+xml" data="images/oracle.svg"></object>Oracle</li> -->
+                    <li skill-description="SQLAlchemy"><object type="image/svg+xml" data="images/sqlalchemy.svg"></object>SQLAlchemy</li>
+                    <li skill-description="Celery"><object type="image/svg+xml" data="images/celery.svg"></object>Celery</li>
                 </ul>
             </section>
             <section>
-                <h4>Other tools <img class="section-logos" src="./images/tools.svg"></h4>
+                <h4>Web Frontend <img class="section-logos" src="./images/frontend.svg"></h4>
                 <ul>
+                    <li skill-description="React.js"><object type="image/svg+xml" data="images/react.svg"></object>React.js</li>
+                    <li skill-description="HTML5"><object type="image/svg+xml" data="images/html5.svg"></object>HTML5</li>
+                    <li skill-description="CSS3"><object type="image/svg+xml" data="images/css3.svg"></object>CSS3</li>
+                    <li skill-description="Bootstrap"><object type="image/svg+xml" data="images/bootstrap.svg"></object>Bootstrap</li>
+                    <li skill-description="Material UI"><object type="image/svg+xml" data="images/materialui.svg"></object>Material UI</li>
+                    <li skill-description="Django Channels"><object type="image/svg+xml" data="images/django.svg"></object>Django Channels</li>
+                </ul>
+            </section>
+            <section>
+                <h4>APIs &amp; Messaging</h4>
+                <ul>
+                    <li skill-description="GraphQL"><object type="image/svg+xml" data="images/graphql.svg"></object>GraphQL</li>
+                    <li skill-description="Kafka"><object type="image/svg+xml" data="images/kafka.svg"></object>Apache Kafka</li>
+                    <li skill-description="RabbitMQ"><object type="image/svg+xml" data="images/rabbitmq.svg"></object>RabbitMQ</li>
+                    <li skill-description="WebSockets"><object type="image/svg+xml" data="images/websockets.svg"></object>WebSockets</li>
+                    <li skill-description="OAuth2"><object type="image/svg+xml" data="images/oauth.svg"></object>OAuth 2.0</li>
+                </ul>
+            </section>
+            <section>
+                <h4>Databases <img class="section-logos" src="./images/database.svg"></h4>
+                <ul>
+                    <li skill-description="PostgreSQL"><object type="image/svg+xml" data="images/postgresql.svg"></object>PostgreSQL</li>
+                    <li skill-description="MySQL"><object type="image/svg+xml" data="images/mysql.svg"></object>MySQL</li>
+                    <li skill-description="MongoDB"><object type="image/svg+xml" data="images/mongodb.svg"></object>MongoDB</li>
+                    <li skill-description="Redis"><object type="image/svg+xml" data="images/redis.svg"></object>Redis</li>
+                    <li skill-description="DynamoDB"><object type="image/svg+xml" data="images/dynamodb.svg"></object>DynamoDB</li>
+                    <li skill-description="Elasticsearch"><object type="image/svg+xml" data="images/elasticsearch.svg"></object>Elasticsearch</li>
+                </ul>
+            </section>
+            <section>
+                <h4>DevOps &amp; CI/CD <img class="section-logos" src="./images/tools.svg"></h4>
+                <ul>
+                    <li skill-description="Docker"><object type="image/svg+xml" data="images/docker.svg"></object>Docker</li>
+                    <li skill-description="Kubernetes"><object type="image/svg+xml" data="images/kubernetes.svg"></object>Kubernetes (EKS)</li>
+                    <li skill-description="GitHub Actions"><object type="image/svg+xml" data="images/githubactions.svg"></object>GitHub Actions</li>
+                    <li skill-description="Jenkins"><object type="image/svg+xml" data="images/jenkins.svg"></object>Jenkins</li>
+                    <li skill-description="Ansible"><object type="image/svg+xml" data="images/ansible.svg"></object>Ansible</li>
+                    <li skill-description="Terraform"><object type="image/svg+xml" data="images/terraform.svg"></object>Terraform</li>
                     <li skill-description="Git"><object type="image/svg+xml" data="images/git.svg"></object>Git</li>
-                    <li skill-description="Github"><object type="image/svg+xml" data="images/github.svg"></object>Github</li>
-                    <li  skill-description="Visual Studio Code"><object type="image/svg+xml" data="images/visualstudiocode.svg"></object>VScode</li>
-                    <li  skill-description="Terminal"><object type="image/svg+xml" data="images/gnubash.svg"></object>Unix Shells (Bash/zsh)</li>
                 </ul>
             </section>
             <section>
-                <h4>Human languages <img class="section-logos" src="./images/languages.svg"></h4>
+                <h4>Cloud Platforms <img class="section-logos" src="./images/tools.svg"></h4>
+                <ul>
+                    <li skill-description="AWS"><object type="image/svg+xml" data="images/aws.svg"></object>AWS (EC2, EKS, RDS, S3, Lambda, SQS)</li>
+                    <li skill-description="Azure"><object type="image/svg+xml" data="images/azure.svg"></object>Azure</li>
+                    <li skill-description="GCP"><object type="image/svg+xml" data="images/gcp.svg"></object>GCP</li>
+                </ul>
+            </section>
+            <section>
+                <h4>AI / LLM Systems</h4>
+                <ul>
+                    <li skill-description="OpenAI API"><object type="image/svg+xml" data="images/openai.svg"></object>OpenAI API</li>
+                    <li skill-description="Google Gemini"><object type="image/svg+xml" data="images/gemini.svg"></object>Google Gemini</li>
+                    <li skill-description="LangChain"><object type="image/svg+xml" data="images/langchain.svg"></object>LangChain</li>
+                    <li skill-description="LangGraph"><object type="image/svg+xml" data="images/langchain.svg"></object>LangGraph</li>
+                    <li skill-description="RAG">RAG / Advanced RAG</li>
+                    <li skill-description="Multi-Agent Systems">Multi-Agent Systems</li>
+                    <li skill-description="ChromaDB">ChromaDB</li>
+                </ul>
+            </section>
+            <section>
+                <h4>Testing &amp; Quality</h4>
+                <ul>
+                    <li skill-description="Pytest"><object type="image/svg+xml" data="images/pytest.svg"></object>Pytest</li>
+                    <li skill-description="Jest"><object type="image/svg+xml" data="images/jest.svg"></object>Jest</li>
+                    <li skill-description="Playwright"><object type="image/svg+xml" data="images/playwright.svg"></object>Playwright</li>
+                    <li skill-description="SonarQube"><object type="image/svg+xml" data="images/sonarqube.svg"></object>SonarQube</li>
+                    <li skill-description="TDD">TDD</li>
+                </ul>
+            </section>
+            <section>
+                <h4>Monitoring &amp; Logging</h4>
+                <ul>
+                    <li skill-description="Grafana"><object type="image/svg+xml" data="images/grafana.svg"></object>Grafana</li>
+                    <li skill-description="Prometheus"><object type="image/svg+xml" data="images/prometheus.svg"></object>Prometheus</li>
+                    <li skill-description="CloudWatch"><object type="image/svg+xml" data="images/aws.svg"></object>AWS CloudWatch</li>
+                    <li skill-description="ELK Stack"><object type="image/svg+xml" data="images/elasticsearch.svg"></object>ELK Stack</li>
+                </ul>
+            </section>
+            <section>
+                <h4>Security &amp; Auth</h4>
+                <ul>
+                    <li skill-description="OAuth 2.0"><object type="image/svg+xml" data="images/oauth.svg"></object>OAuth 2.0</li>
+                    <li skill-description="JWT"><object type="image/svg+xml" data="images/jwt.svg"></object>JWT</li>
+                    <li skill-description="AWS Cognito"><object type="image/svg+xml" data="images/aws.svg"></object>AWS Cognito</li>
+                    <li skill-description="RBAC">RBAC</li>
+                    <li skill-description="SSL/TLS">SSL/TLS</li>
+                    <li skill-description="MFA">MFA</li>
+                </ul>
+            </section>
+            <section>
+                <h4>Human Languages <img class="section-logos" src="./images/languages.svg"></h4>
                 <ul>
                     <li>English</li>
                     <li>Hindi</li>
@@ -209,7 +262,7 @@
             <!-- <a href="mailto:ziyadkader@gmail.com" description="Mail"><i class="fas fa-envelope" onmouseover='displayDescriptionOnLinks("fa-envelope");'></i>
                 ponnala.aravindz@gmail.com</a> -->
 
-            <a href="https://www.linkedin.com/in/aravind-ponnala/" description="Linkedin"><i class="fab fa-linkedin-in"></i>
+            <a href="https://www.linkedin.com/in/ponnalaravind/" description="Linkedin"><i class="fab fa-linkedin-in"></i>
                 linkedin</a>
             <a href="https://github.com/aravindponnala" description="Github"><i class="fab fa-github"></i>
                 github</a>
@@ -230,8 +283,8 @@
 
         <h2>Contact</h2>
         <div>
-           <a><i class="fa-solid fa-phone"></i>   +1 334-781-9213</a>
-           <a><i class="fa-solid fa-envelope"></i>   ponnala.aravindz@gmail.com</a>
+           <a href="tel:+16599770703"><i class="fa-solid fa-phone"></i>   +1 (659) 977-0703</a>
+           <a href="mailto:aravindponnala320@gmail.com"><i class="fa-solid fa-envelope"></i>   aravindponnala320@gmail.com</a>
         </div>
 
     </section>
@@ -240,79 +293,99 @@
 <section id="work-history-section" class="section">
     <h2>Work History</h2>
     <div class="experience-wrapper">
+
         <div class="experience">
-            <img src="./images/neotas.png" alt="Work History Image" class="work-image">
-            <h2><a href="https://www.neotas.com/" target="_blank">Neotas Development PVT LTD</a></h2>
+            <h2><a href="https://www.genieshop.com" target="_blank">GenieShop USA</a></h2>
             <div class="top-right">
-            <p class="year">July 2023 – Nov 2023</p>
-            <p class="area">Pune In</p>
+                <p class="year">Aug 2025 – Present</p>
+                <p class="area">USA (Remote)</p>
             </div>
-            <h3>Sr Backend Developer</h3>
-            <p>During my tenure as a Senior Backend Developer on the Delvium project (July 2023 – Nov 2023), 
-                I played a key role in integrating open APIs, including Facebook, Twitter, and Court, 
-                to enhance due diligence processes. I ensured data accuracy and reliability by validating 
-                Excel sheets and implemented SonarQube to monitor code quality, detect code smells, and track test coverage. 
-                Additionally, I designed and developed a microservices architecture using FastAPI and Docker, enabling scalable and 
-                efficient backend solutions. My expertise in handling graph data allowed me to meet specific project requirements 
-                effectively. I also took on a leadership role by supervising and mentoring team members, ensuring smooth 
-                task delegation and workflow management. Furthermore, I implemented a Credit Pack system to facilitate the 
-                consumption of private APIs within the application. The project leveraged a tech stack that included Python, 
-                Django, and FastAPI, with PostgreSQL and MongoDB as the primary databases.</p>
+            <h3>Software Engineer – AI Focus</h3>
+            <p>Architected a <strong>multi-agent, LLM-powered routing system</strong> using FastAPI and asyncio, enabling dynamic coordination across distributed AI agents and <strong>reducing end-to-end latency by 35%</strong>. Built an AI router agent for intelligent LLM-driven query understanding and service selection, <strong>improving response relevance by 30%</strong>. Implemented <strong>RAG-based retrieval pipelines</strong> with Gemini Embeddings and vector search, grounding responses in real merchant and product data. Standardized agent communication using the <strong>Model Context Protocol (MCP)</strong> and implemented fault-tolerant patterns achieving <strong>99.9% successful requests under partial failures</strong>.</p>
+            <div class="tags experience-tags">
+                <span>FastAPI</span><span>Python</span><span>LangChain</span><span>LangGraph</span><span>OpenAI</span><span>Gemini</span><span>RAG</span><span>asyncio</span><span>MCP</span>
+            </div>
         </div>
 
         <div class="experience">
-            <img src="./images/S&P_logo.jpg" alt="Work History Image" class="work-image">
-            <h2><a href="https://www.spglobal.com" target="_blank">S&P Global Pvt. Ltd.</a></h2>
+            <img src="./images/neotas.png" alt="Neotas" class="work-image">
+            <h2><a href="https://www.neotas.com/" target="_blank">Neotas India</a></h2>
             <div class="top-right">
-            <p class="year">March 2022 – July 2023</p>
-            <p class="area">Hyderbad In</p>
+                <p class="year">Jul 2023 – Nov 2023</p>
+                <p class="area">Pune, India</p>
+            </div>
+            <h3>Senior Python Developer</h3>
+            <p>Engineered third-party API integrations (Facebook, Twitter, court data) with an <strong>event-driven ETL pipeline using Kafka, Python, and MySQL</strong>, enabling automated due-diligence workflows. Designed <strong>GraphQL and REST APIs</strong> using FastAPI, reducing data over-fetching by 40%. Built containerized microservices with <strong>Docker and Kubernetes</strong>, maintaining <strong>90%+ test coverage</strong> via SonarQube. Led and mentored engineers, delivering a credit-based private API consumption system.</p>
+            <div class="tags experience-tags">
+                <span>Python</span><span>Django</span><span>FastAPI</span><span>GraphQL</span><span>Kafka</span><span>Docker</span><span>Kubernetes</span><span>PostgreSQL</span><span>MongoDB</span>
+            </div>
+        </div>
+
+        <div class="experience">
+            <img src="./images/S&P_logo.jpg" alt="S&P Global" class="work-image">
+            <h2><a href="https://www.spglobal.com" target="_blank">S&P Global – Commodity Insights</a></h2>
+            <div class="top-right">
+                <p class="year">Mar 2022 – Jul 2023</p>
+                <p class="area">Hyderabad, India</p>
             </div>
             <h3>Software Developer II</h3>
-            <p>As a <strong>Software Developer II</strong> on the <strong>AGAVE</strong> project (March 2022 – July 2023), 
-                I played a key role in managing code deployments, updates, and fixes while leading the 
-                development and implementation of system troubleshooting and maintenance procedures. 
-                I was actively involved in designing, developing, testing, and debugging scalable solutions, 
-                ensuring seamless execution within project timelines. My work primarily focused on building 
-                and maintaining <strong>Microservices and REST APIs</strong> using <strong>Django, FastAPI, and Docker</strong>, while also 
-                developing back-end APIs for the <strong>Price Reporting platform</strong>, serving Reporters, Editors, and TechOps users. 
-                I formulated test cases using <strong>PyTest</strong> and improved code quality by addressing code smells with <strong>SonarQube</strong>. 
-                Additionally, I worked on redesigning <strong>Normalization and Pre-normalization APIs</strong> for flat and float pricing, 
-                resolving security vulnerabilities using the <strong>Fortify framework</strong>, and implementing the <strong>Order-book system</strong> 
-                for price assistance, providing a comprehensive summary of the best bid, best offer, and trades. 
-                My contributions also included writing scripts to facilitate <strong>data import/export in CSV and Excel 
-                formats</strong> and ensuring efficient project execution within an <strong>Agile development environment</strong>. 
-                Throughout the project, I leveraged a strong tech stack that included <strong>React.js for front-end 
-                    development, Python, Django, Django Rest Framework, FastAPI for back-end services, and PostgreSQL 
-                    as the database</strong>.</p>
+            <p>Developed core modules of <strong>AGAVE</strong>, a real-time commodity price reporting platform, enabling <strong>40% faster price validation</strong> for editors and reporters. Engineered high-throughput <strong>Apache Kafka streaming pipelines</strong> processing millions of market events daily with sub-second delivery. Implemented <strong>async microservices</strong> using FastAPI, Redis, and RabbitMQ, improving throughput by 35%. Containerized with Docker and deployed on <strong>AWS (EKS, EC2, RDS, S3)</strong> with GitLab CI/CD, <strong>reducing deployment errors by 60%</strong>. Secured with OAuth 2.0, MFA, and RBAC ensuring PCI DSS compliance.</p>
+            <div class="tags experience-tags">
+                <span>Python</span><span>Django</span><span>FastAPI</span><span>React.js</span><span>Kafka</span><span>Redis</span><span>RabbitMQ</span><span>PostgreSQL</span><span>Docker</span><span>AWS</span>
+            </div>
         </div>
 
         <div class="experience">
-            <img src="./images/aodh_logo.jpeg" alt="Work History Image" class="work-image">
-            <h2><a href="https://www.aodhlifesciences.in/" target="_blank">Aodh Intelligence Pvt. Ltd.</a></h2>
+            <img src="./images/aodh_logo.jpeg" alt="Aodh Lifesciences" class="work-image">
+            <h2><a href="https://www.aodhlifesciences.in/" target="_blank">Aodh Lifesciences India</a></h2>
             <div class="top-right">
-                <p class="year">Jan 2017 - March 2022</p>
-                <p class="area">Hyderbad In</p>
-                </div>
-            <h3>Django Developer & API Developer</h3>
-            <p>As a <strong>Django Developer & API Developer</strong>, I contributed to the development 
-                of <strong>Aodh Human</strong> (January 2021 – March 2022) and <strong>Aodh Pet</strong> (July 2017 – January 2021), 
-                building scalable and efficient backend solutions. My role involved designing and implementing 
-                <strong>backend APIs</strong> for the <strong>Hospital Management System</strong>, catering to users, doctors, and 
-                administrators while also developing an intuitive admin dashboard. Using <strong>Django and Django Rest Framework</strong>, 
-                I played a crucial role in ensuring seamless API functionality and system efficiency. I integrated <strong>token-based 
-                authentication</strong> with <strong>AWS Cognito</strong>, designed <strong>custom user models</strong> for profile management, and implemented 
-                <strong>OTP-based login and registration systems</strong>. My responsibilities also included 
-                <strong>writing test cases using PyTest</strong> 
-                to enhance code reliability and performance. Additionally, I worked on <strong>multi-tenant architecture</strong> for 
-                web applications using <strong>Django and PostgreSQL</strong>, ensuring secure deployment through <strong>AWS cloud services</strong> 
-                such as <strong>EC2, Route 53, Lambda, RDS, S3, and CloudWatch</strong>. I also contributed to the <strong>SSL integration</strong> 
-                of the web application, enabling secure connections between servers and clients. Throughout both projects, 
-                I leveraged <strong>React, Bootstrap, and CSS3</strong> for front-end development while ensuring efficient backend performance 
-                with <strong>Python, Django, and MySQL</strong>.  
-            .</p>
+                <p class="year">Mar 2019 – Jan 2022</p>
+                <p class="area">Hyderabad, India</p>
+            </div>
+            <h3>Software Engineer</h3>
+            <p>Built a <strong>HIPAA-compliant multi-tenant SaaS</strong> healthcare platform using Django, React, and PostgreSQL, onboarding <strong>15+ healthcare facilities with zero data leakage incidents</strong>. Integrated <strong>AWS Cognito, OTP-based login, and custom user schemas</strong> for secure identity management. Engineered real-time notifications using <strong>Django Channels, Redis, and WebSockets</strong>, boosting responsiveness by 15%. Deployed on <strong>AWS (EC2, RDS, Route 53, Lambda, S3)</strong> with SSL/TLS and CloudWatch monitoring, achieving <strong>99.98% uptime</strong>.</p>
+            <div class="tags experience-tags">
+                <span>Python</span><span>Django</span><span>React.js</span><span>PostgreSQL</span><span>MySQL</span><span>AWS Cognito</span><span>WebSockets</span><span>Django Channels</span><span>AWS</span>
+            </div>
         </div>
+
     </div>
 </section>
+
+
+    <!-- Education -->
+    <section id="education-section" class="section">
+        <h2>Education &amp; Certifications</h2>
+        <div class="experience-wrapper">
+            <div class="experience">
+                <h2>Auburn University at Montgomery</h2>
+                <div class="top-right">
+                    <p class="year">Jan 2024 – May 2025</p>
+                    <p class="area">Montgomery, AL</p>
+                </div>
+                <h3>Master of Science in Computer Science</h3>
+                <p>Completed MS in Computer Science with focus on advanced software engineering, distributed systems, algorithms, and machine learning.</p>
+            </div>
+            <div class="experience">
+                <h2>Master's Degree and PG College</h2>
+                <div class="top-right">
+                    <p class="year">2016</p>
+                    <p class="area">Sangareddy, India</p>
+                </div>
+                <h3>Bachelor of Commerce in Computers</h3>
+                <p>Completed undergraduate studies in Commerce with a specialization in Computer Applications.</p>
+            </div>
+            <div class="experience">
+                <h2>Amazon Web Services</h2>
+                <div class="top-right">
+                    <p class="year">Aug 2025 – Aug 2030</p>
+                    <p class="area">Certification</p>
+                </div>
+                <h3>AWS Certified Developer – Associate</h3>
+                <p>Certified in developing and deploying applications on AWS, covering EC2, Lambda, S3, DynamoDB, RDS, SQS, and CI/CD with AWS CodePipeline.</p>
+            </div>
+        </div>
+    </section>
 
 </main>
 

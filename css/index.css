@@ -192,6 +192,9 @@ removed this code
   animation-duration: 0.8s;
   animation-timing-function: ease-out;
   margin-top: 10em;
+  z-index: 1000;
+  flex-wrap: wrap;
+  gap: 0.3em;
 }
 
 #menu a {
@@ -450,10 +453,11 @@ article li {
 }
 
 #links-section > div {
-  height: 1em;
+  height: auto;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   width: 50%;
+  gap: 0.5em;
 }
 
 #links-section > div > * {
@@ -476,10 +480,11 @@ article li {
   opacity: 1;
 }
 #work-history-section > div {
-  height: 1em;
+  height: auto;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   width: 95%;
+  gap: 1.5em;
 }
 
 #work-history-section > div > * {
@@ -512,10 +517,11 @@ article li {
 }
 
 #contact-section > div {
-  height: 1em;
+  height: auto;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   width: 30%;
+  gap: 0.5em;
 }
 
 #contact-section > div > * {
@@ -635,6 +641,73 @@ html {
 
 .area {
   top: 75px; /* Slightly below the year */
+}
+
+#education-section > .experience-wrapper {
+  height: auto;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  width: 95%;
+  gap: 1.5em;
+}
+
+/* Inline tech-stack tags inside experience cards */
+.experience-tags {
+  flex-direction: row !important;
+  flex-wrap: wrap;
+  margin-top: 1em;
+}
+
+.experience-tags span {
+  border: 1px solid var(--light-accent-color);
+  margin-bottom: 0.4em;
+}
+
+/* Tablet responsiveness */
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+  body {
+    width: 90%;
+  }
+  #menu {
+    max-width: 100%;
+    flex-wrap: wrap;
+    gap: 0.5em;
+  }
+  #menu a {
+    margin-right: 0.8em;
+    font-size: 0.8em;
+  }
+  #about-me-section {
+    width: 100%;
+  }
+  #about-me-intro-section {
+    width: 100%;
+    max-width: 500px;
+  }
+  article {
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 0.5fr));
+  }
+  article section {
+    min-width: 14em;
+  }
+  #projects-wrapper {
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 0.5fr));
+  }
+  #links-section > div {
+    width: 80%;
+  }
+  #contact-section > div {
+    width: 50%;
+  }
+  #work-history-section > div {
+    width: 100%;
+  }
+  #education-section > .experience-wrapper {
+    width: 100%;
+  }
+  .year, .area {
+    font-size: 0.75em;
+  }
 }
 
 

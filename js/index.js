@@ -37,10 +37,6 @@ function displaySection(link,section) {
                 
             } else if (section == "projects-section") {
                 let s = document.querySelector("#projects-wrapper");
-                let k = document.g.querySelector("#inner-contact-section")
-                s.style.display = "flex";
-                s.style.flexDirection = "column";
-
                 s.style.display = "flex";
                 s.style.flexDirection = "column";
 
@@ -61,6 +57,12 @@ function displaySection(link,section) {
                 linkWrapper.style.display = "flex";
                 linkWrapper.style.flexDirection = "column";
 
+            } else if (section == "education-section") {
+                let linkWrapper = document.querySelector(`#${section} .experience-wrapper`);
+                if (linkWrapper) {
+                    linkWrapper.style.display = "flex";
+                    linkWrapper.style.flexDirection = "column";
+                }
             }
             sec.classList.remove("section");
             sec.style.display = "block";
@@ -81,16 +83,17 @@ function displaySection(link,section) {
             sec.style.animationName = "section";
             sec.style.animationDuration = "0.6s";
             sec.style.animationFillMode = "forwards";
-            
+            sec.style.paddingTop = "4em";
 
             let menu = document.querySelector("#menu");
             menu.style.marginTop = "0px";
             menu.style.display = "flex";
             menu.style.position = "fixed";
-            menu.style.top = "1vw"; 
+            menu.style.top = "1vw";
             menu.style.transition = "All 1s";
             menu.style.marginTop="0px";
             menu.style.right= "15vw";
+            menu.style.zIndex = "1000";
 
             event.preventDefault() ;
             lnk.classList.add("active");
@@ -169,3 +172,4 @@ displaySection("links","links-section");
 displaySection("work_history","work-history-section");
 displaySection("contact","contact-section");
 displaySection("inner-contact","contact-section");
+displaySection("education","education-section");
